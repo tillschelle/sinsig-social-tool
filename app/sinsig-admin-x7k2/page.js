@@ -1107,6 +1107,7 @@ export default function AdminPage() {
                         holiday:  { bg:'#f59e0b12', border:'#f59e0b30', color:'#f59e0b', label:'📅 Feiertag' },
                         service:  { bg:`${TEAL}12`,  border:`${TEAL}30`,  color:TEAL,      label:'📌 Nächster Post' },
                         fahrzeug: { bg:`${TEAL}12`,  border:`${TEAL}30`,  color:TEAL,      label:'🚗 Fahrzeug-Post' },
+                        done:     { bg:'#22c55e12', border:'#22c55e30', color:'#22c55e',   label:'✓ Alles geplant' },
                       }
                       const s = styles[empfehlung.typ] || styles.service
                       return (
@@ -1892,7 +1893,7 @@ export default function AdminPage() {
                           style={{ background: showPlanenPanel ? '#f59e0b20' : 'rgba(255,255,255,0.05)', color: showPlanenPanel ? '#f59e0b' : '#aaa', border: `1px solid ${showPlanenPanel ? '#f59e0b50' : 'rgba(255,255,255,0.12)'}` }}>
                           📅 Planen
                         </button>
-                        <button onClick={() => speichern('fahrzeug', `${kfz.marke} ${kfz.modell}`, kfzCaption, kfzHashtags, 'Beitrag')}
+                        <button onClick={() => speichern('fahrzeug', [kfz.marke, kfz.modell].filter(Boolean).join(' '), kfzCaption, kfzHashtags, 'Beitrag')}
                           className="px-6 py-2.5 rounded-xl text-sm font-medium transition-all hover:opacity-80"
                           style={{ background: TEAL, color: '#fff', border: `1px solid ${TEAL}` }}>
                           {gespeichert ? '✅ Gepostet' : 'Jetzt posten'}
@@ -1924,7 +1925,7 @@ export default function AdminPage() {
                             onChange={e => setGeplantUhrzeit(e.target.value)}
                             className="rounded-xl px-3 py-2.5 text-sm outline-none"
                             style={{ background: 'rgba(255,255,255,0.05)', border: `1px solid ${TEAL}40`, color: '#e8e8e8', width: '110px' }} />
-                          <button onClick={() => planen('fahrzeug', `${kfz.marke} ${kfz.modell}`, kfzCaption, kfzHashtags, 'Beitrag')}
+                          <button onClick={() => planen('fahrzeug', [kfz.marke, kfz.modell].filter(Boolean).join(' '), kfzCaption, kfzHashtags, 'Beitrag')}
                             disabled={!planenDatum}
                             className="px-5 py-2.5 rounded-xl text-sm font-medium transition-all hover:opacity-80"
                             style={{ background: planenDatum ? '#f59e0b' : 'rgba(255,255,255,0.05)', color: planenDatum ? '#000' : '#555', border: 'none' }}>
@@ -2327,26 +2328,26 @@ export default function AdminPage() {
                 {insightsOffen.has('fahrzeug') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-3 text-sm" style={{ color: '#555' }}>
                   <p>Gebrauchtwagen-Posts sind wichtig für die Reichweite — konkrete Angebote sprechen potenzielle Käufer direkt an und erzeugen messbar mehr Interaktion als reine Service-Posts.</p>
-                  <p>Die Erinnerung ist in die <span style={{ color: '#e8e8e8' }}>„Nächster Post"-Empfehlung</span> integriert — sie erscheint als eigene Prioritätsstufe im Empfehlungsfeld, sobald 14 Tage kein Fahrzeug gepostet wurde.</p>
+                  <p>Die Erinnerung ist in die <span style={{ color: '#e8e8e8' }}>„Nächster Post"-Empfehlung</span> integriert — sie erscheint als eigene Prioritätsstufe im Empfehlungsfeld, sobald in den nächsten 4 Wochen kein Fahrzeug-Post geplant oder gepostet ist.</p>
                   <div className="rounded-xl p-4 flex flex-col gap-2" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
                     <div className="flex items-center gap-3">
                       <span style={{ color: TEAL }}>⏱️</span>
-                      <span><span style={{ color: '#e8e8e8' }}>Schwelle: 14 Tage</span> — nach 2 Wochen ohne Fahrzeug-Aktivität wird die Empfehlung auf „🚗 Fahrzeug-Post" umgeschaltet.</span>
+                      <span><span style={{ color: '#e8e8e8' }}>Fenster: 28 Tage</span> — das Tool prüft ob in den nächsten 4 Wochen ein Fahrzeug-Post geplant oder gepostet ist. Fehlt er → Erinnerung.</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <span style={{ color: TEAL }}>🔄</span>
-                      <span><span style={{ color: '#e8e8e8' }}>Coverage-Modell:</span> Das neueste Fahrzeug-Datum aus Verlauf + Redaktionsplan wird ermittelt. Liegt es weniger als 14 Tage in der Zukunft, erscheint die Erinnerung — egal ob gepostet oder geplant.</span>
+                      <span><span style={{ color: '#e8e8e8' }}>Vorwärts-schauend:</span> Verlauf + Redaktionsplan werden auf Fahrzeug-Posts in den nächsten 28 Tagen geprüft. Ist einer dabei → keine Erinnerung.</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <span style={{ color: TEAL }}>📅</span>
-                      <span>Beispiel: Fahrzeug geplant für morgen → Erinnerung erscheint, weil die Coverage nur 1 Tag reicht. Fahrzeug in 15 Tagen → keine Erinnerung. Immer <span style={{ color: '#e8e8e8' }}>mindestens 14 Tage vorausplanen.</span></span>
+                      <span>Beispiel: Fahrzeug für morgen geplant → keine Erinnerung. Fahrzeug zuletzt vor 3 Wochen, nichts Neues geplant → Erinnerung erscheint. Tipp: <span style={{ color: '#e8e8e8' }}>immer mindestens 1 Fahrzeug in den nächsten 4 Wochen einplanen.</span></span>
                     </div>
                     <div className="flex items-center gap-3">
                       <span style={{ color: TEAL }}>📍</span>
                       <span>Priorität: nach Feiertags-Warnungen, <span style={{ color: '#e8e8e8' }}>vor Service-Post-Rotation</span> — Fahrzeuge haben direkte Kaufabsicht.</span>
                     </div>
                   </div>
-                  <p style={{ color: '#3a3a3a' }}>Empfehlung: <span style={{ color: '#555' }}>1 Fahrzeug-Post pro Woche</span> als Teil des Redaktionsplans einplanen — z.B. immer donnerstags als zweiter Slot.</p>
+                  <p style={{ color: '#3a3a3a' }}>Empfehlung: <span style={{ color: '#555' }}>1 Fahrzeug-Post alle 2–4 Wochen</span> als fester Bestandteil des Redaktionsplans.</p>
                 </div></div>}
               </div>
 
@@ -2362,7 +2363,7 @@ export default function AdminPage() {
                   {[
                     { prio: '1', farbe: '#ef4444', label: 'Feiertag in ≤ 7 Tagen — nicht geplant', desc: 'Sofortige rote Warnung. Weihnachten, Ostern & Co. brauchen Vorlaufzeit für Canvas-Erstellung und Abstimmung.' },
                     { prio: '2', farbe: '#f59e0b', label: 'Feiertag in ≤ 30 Tagen — nicht geplant', desc: 'Amber-Hinweis zum frühzeitigen Planen. Das Feiertags-Bild muss erstellt, geprüft und terminiert werden.' },
-                    { prio: '3', farbe: TEAL,      label: 'Fahrzeug-Post: Coverage < 14 Tage', desc: 'Coverage-Modell: Das neueste Fahrzeug-Datum (gepostet oder geplant) wird geprüft. Liegt es weniger als 14 Tage in der Zukunft, erscheint die Erinnerung — auch wenn ein Post für morgen geplant ist. Ziel: immer mindestens 14 Tage Vorlauf.' },
+                    { prio: '3', farbe: TEAL,      label: 'Fahrzeug-Post: keiner in den nächsten 4 Wochen', desc: 'Vorwärts-schauend: Das Tool prüft ob in den nächsten 28 Tagen ein Fahrzeug-Post geplant oder gepostet ist. Fehlt er, erscheint die Erinnerung. Ist einer geplant — egal für welchen Tag in diesem Fenster — bleibt die Erinnerung still.' },
                     { prio: '4', farbe: TEAL,      label: 'Monatlicher Schwerpunkt noch offen', desc: 'Saisonal passende Vorlage (z.B. Räderwechsel im März/Oktober). Wird vorgeschlagen bis sie für diesen Monat gepostet oder geplant ist.' },
                     { prio: '5', farbe: '#666',    label: 'Rotations-Vorschlag', desc: 'Die Vorlage die am längsten nicht gepostet wurde rückt nach. Keine Wiederholungen im gleichen Monat — maximale Abwechslung für Follower.' },
                   ].map((item, i) => (
