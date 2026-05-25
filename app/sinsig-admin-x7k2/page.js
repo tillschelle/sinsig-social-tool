@@ -875,7 +875,7 @@ export default function AdminPage() {
             </button>
           </form>
 
-          <p className="text-center text-xs" style={{ color: '#2a2a2a' }}>v0.2 · Sinsig & Lang GmbH & Co. KG</p>
+          <p className="text-center text-xs" style={{ color: '#2a2a2a' }}>v0.3 · Sinsig & Lang GmbH & Co. KG</p>
         </div>
       </div>
     )
@@ -2453,6 +2453,17 @@ export default function AdminPage() {
                         'Insights & Hilfe-Bereich',
                       ]
                     },
+                    {
+                      version: 'v0.3',
+                      datum: 'Mai 2026',
+                      neu: [
+                        'Fahrzeug-Erinnerung schaut jetzt 4 Wochen voraus (statt 2)',
+                        'Feiertags-Warnung im Redaktionsplan bei Slot-Konflikten',
+                        'Ersteller wird im Redaktionsplan angezeigt',
+                        'Benutzeranzeige oben rechts im Header',
+                        'Admin-Account hinzugefügt',
+                      ]
+                    },
                   ].map((entry, i) => (
                     <div key={i} className="flex flex-col gap-2">
                       <div className="flex items-center gap-3">
@@ -2467,7 +2478,7 @@ export default function AdminPage() {
                           </div>
                         ))}
                       </div>
-                      {i < 1 && <div className="mt-1" style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }} />}
+                      {i < 2 && <div className="mt-1" style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }} />}
                     </div>
                   ))}
                 </div>
@@ -2485,7 +2496,7 @@ export default function AdminPage() {
             <img src="/logo.png" alt="Sinsig & Lang" className="h-5 w-auto object-contain opacity-30" />
             <span className="text-xs" style={{ color: '#2a2a2a' }}>Sinsig & Lang GmbH & Co. KG · Autorisierte Mercedes-Benz Vertragswerkstatt · Bingen am Rhein</span>
           </div>
-          <span className="text-xs" style={{ color: '#222' }}>Erstellt von Till Schellenberger · Internes Tool · v0.2</span>
+          <span className="text-xs" style={{ color: '#222' }}>Erstellt von Till Schellenberger · Internes Tool · v0.3</span>
         </footer>
 
       </main>
