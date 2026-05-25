@@ -2194,7 +2194,7 @@ export default function AdminPage() {
               <div className="rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
                 <p className="text-sm font-medium mb-4" style={{ color: '#aaa' }}>📖 Was ist dieses Tool?</p>
                 <div className="flex flex-col gap-3 text-sm" style={{ color: '#555' }}>
-                  <p>Ich — <span style={{ color: '#e8e8e8' }}>Till Schellenberger</span> — habe dieses Tool mit Hilfe von Claude (KI von Anthropic) gebaut, um unseren Arbeitsalltag rund um Social Media zu erleichtern. Was vorher viel manuelle Überlegung gekostet hat — was posten wir diese Woche, welcher Feiertag kommt, wann war zuletzt ein Fahrzeug dran — übernimmt das Tool jetzt automatisch.</p>
+                  <p>Dieses Tool wurde intern mit Hilfe von KI entwickelt, um unseren Arbeitsalltag rund um Social Media zu erleichtern. Was vorher viel manuelle Überlegung gekostet hat — was posten wir diese Woche, welcher Feiertag kommt, wann war zuletzt ein Fahrzeug dran — übernimmt das Tool jetzt automatisch.</p>
                   <p>Es ist kein Agentur-Produkt und kein fertiges SaaS — sondern etwas, das <span style={{ color: '#e8e8e8' }}>genau für uns gebaut wurde</span>. Für Sinsig & Lang, unsere Abläufe und unsere Art zu arbeiten. Und es wächst mit: Was heute fehlt, kommt in einem späteren Update.</p>
                   <div className="grid grid-cols-3 gap-4 mt-2 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
                     {[
