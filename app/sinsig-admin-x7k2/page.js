@@ -1102,7 +1102,7 @@ export default function AdminPage() {
               <div className="flex flex-col gap-6">
 
                 {/* Begrüßung */}
-                <p className="text-sm" style={{ color: '#555' }}>{gruss}, <span style={{ color: '#888' }}>{currentUser}</span> 👋</p>
+                <p className="text-xl font-light" style={{ color: '#555' }}>{gruss}, <span style={{ color: '#aaa' }}>{currentUser}</span></p>
 
                 {/* Monats-Stats */}
                 <div>
