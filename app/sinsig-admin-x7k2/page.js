@@ -888,7 +888,7 @@ export default function AdminPage() {
             </button>
           </form>
 
-          <p className="text-center text-xs" style={{ color: '#2a2a2a' }}>v0.3 · Sinsig & Lang GmbH & Co. KG</p>
+          <p className="text-center text-xs" style={{ color: '#2a2a2a' }}>v0.4 · Sinsig & Lang GmbH & Co. KG</p>
         </div>
       </div>
     )
@@ -1216,6 +1216,30 @@ export default function AdminPage() {
           {aktiveTab === 'service' && (
             <div className="flex flex-col gap-7">
 
+              {/* Aktive Warnung als Banner */}
+              {empfehlung && ['dringend','holiday','fahrzeug'].includes(empfehlung.typ) && (() => {
+                const bannerStyles = {
+                  dringend: { bg: '#ef444412', border: '#ef444430', color: '#ef4444', icon: '⚠️' },
+                  holiday:  { bg: '#f59e0b12', border: '#f59e0b30', color: '#f59e0b', icon: '📅' },
+                  fahrzeug: { bg: `${TEAL}12`,  border: `${TEAL}30`,  color: TEAL,      icon: '🚗' },
+                }
+                const bs = bannerStyles[empfehlung.typ]
+                return (
+                  <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm"
+                    style={{ background: bs.bg, border: `1px solid ${bs.border}`, color: bs.color }}>
+                    <span>{bs.icon}</span>
+                    <span className="flex-1">{empfehlung.text}</span>
+                    {empfehlung.typ === 'fahrzeug' && (
+                      <button onClick={() => setAktiveTab('fahrzeug')}
+                        className="text-xs px-3 py-1 rounded-lg flex-shrink-0 hover:opacity-80"
+                        style={{ background: `${TEAL}25`, color: TEAL }}>
+                        Jetzt erstellen →
+                      </button>
+                    )}
+                  </div>
+                )
+              })()}
+
               {/* Vorlagen */}
               <Card>
                 <div className="flex items-center gap-3 mb-4">
@@ -1515,6 +1539,30 @@ export default function AdminPage() {
           {aktiveTab === 'feiertage' && (
             <div className="flex flex-col gap-7">
 
+              {/* Aktive Warnung als Banner */}
+              {empfehlung && ['dringend','holiday','fahrzeug'].includes(empfehlung.typ) && (() => {
+                const bannerStyles = {
+                  dringend: { bg: '#ef444412', border: '#ef444430', color: '#ef4444', icon: '⚠️' },
+                  holiday:  { bg: '#f59e0b12', border: '#f59e0b30', color: '#f59e0b', icon: '📅' },
+                  fahrzeug: { bg: `${TEAL}12`,  border: `${TEAL}30`,  color: TEAL,      icon: '🚗' },
+                }
+                const bs = bannerStyles[empfehlung.typ]
+                return (
+                  <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm"
+                    style={{ background: bs.bg, border: `1px solid ${bs.border}`, color: bs.color }}>
+                    <span>{bs.icon}</span>
+                    <span className="flex-1">{empfehlung.text}</span>
+                    {empfehlung.typ === 'fahrzeug' && (
+                      <button onClick={() => setAktiveTab('fahrzeug')}
+                        className="text-xs px-3 py-1 rounded-lg flex-shrink-0 hover:opacity-80"
+                        style={{ background: `${TEAL}25`, color: TEAL }}>
+                        Jetzt erstellen →
+                      </button>
+                    )}
+                  </div>
+                )
+              })()}
+
               {/* ① Feiertag auswählen */}
               <Card>
                 <div className="flex items-center gap-3 mb-4">
@@ -1698,6 +1746,23 @@ export default function AdminPage() {
           {/* ══ FAHRZEUG ═════════════════════════════════════════════════════ */}
           {aktiveTab === 'fahrzeug' && (
             <div className="flex flex-col gap-7">
+
+              {/* Aktive Warnung als Banner */}
+              {empfehlung && ['dringend','holiday','fahrzeug'].includes(empfehlung.typ) && (() => {
+                const bannerStyles = {
+                  dringend: { bg: '#ef444412', border: '#ef444430', color: '#ef4444', icon: '⚠️' },
+                  holiday:  { bg: '#f59e0b12', border: '#f59e0b30', color: '#f59e0b', icon: '📅' },
+                  fahrzeug: { bg: `${TEAL}12`,  border: `${TEAL}30`,  color: TEAL,      icon: '🚗' },
+                }
+                const bs = bannerStyles[empfehlung.typ]
+                return (
+                  <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm"
+                    style={{ background: bs.bg, border: `1px solid ${bs.border}`, color: bs.color }}>
+                    <span>{bs.icon}</span>
+                    <span className="flex-1">{empfehlung.text}</span>
+                  </div>
+                )
+              })()}
 
               {/* ① Fahrzeugdaten */}
               <Card>
@@ -2490,7 +2555,7 @@ export default function AdminPage() {
                       </div>
                     ))}
                   </div>
-                </div></div></div>}
+                </div></div>}
               </div>
 
               {/* Changelog */}
@@ -2502,6 +2567,14 @@ export default function AdminPage() {
                 {insightsOffen.has('changelog') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-4">
                   {[
+                    {
+                      version: 'v0.4',
+                      datum: 'Mai 2026',
+                      neu: [
+                        'Fahrzeug-Warnung jetzt auch in Service Posts, Feiertage & Fahrzeug-Tab sichtbar',
+                        'Alle Insights-Panels korrekt einklappbar (Datenspeicherung-Fix)',
+                      ]
+                    },
                     {
                       version: 'v0.3',
                       datum: 'Mai 2026',
@@ -2571,7 +2644,7 @@ export default function AdminPage() {
             <img src="/logo.png" alt="Sinsig & Lang" className="h-5 w-auto object-contain opacity-30" />
             <span className="text-xs" style={{ color: '#2a2a2a' }}>Sinsig & Lang GmbH & Co. KG · Autorisierte Mercedes-Benz Vertragswerkstatt · Bingen am Rhein</span>
           </div>
-          <span className="text-xs" style={{ color: '#222' }}>Erstellt von Till Schellenberger · Internes Tool · v0.3</span>
+          <span className="text-xs" style={{ color: '#222' }}>Erstellt von Till Schellenberger · Internes Tool · v0.4</span>
         </footer>
 
       </main>
