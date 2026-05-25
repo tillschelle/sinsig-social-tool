@@ -1161,20 +1161,36 @@ export default function AdminPage() {
                       <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#444' }}>Letzte Posts</p>
                       {letzteVerlauf.length === 0
                         ? <p className="text-sm" style={{ color: '#333' }}>Noch keine Posts vorhanden.</p>
-                        : <div className="flex flex-col gap-3">
+                        : <div className="flex flex-col gap-4">
                             {letzteVerlauf.map(e => (
-                              <div key={e.id} className="flex items-center gap-3">
-                                <span className="text-xs px-2 py-0.5 rounded-full flex-shrink-0"
-                                  style={{
-                                    background: e.typ==='feiertag' ? '#f59e0b20' : e.typ==='fahrzeug' ? `${TEAL}20` : 'rgba(255,255,255,0.06)',
-                                    color:      e.typ==='feiertag' ? '#f59e0b'   : e.typ==='fahrzeug' ? TEAL         : '#666',
-                                  }}>{e.typ}</span>
-                                <span className="text-sm flex-1 truncate" style={{ color: '#aaa' }}>{e.titel}</span>
-                                <span className="text-xs flex-shrink-0" style={{ color: '#333' }}>{e.datum}</span>
+                              <div key={e.id} className="flex flex-col gap-2 pb-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                                <div className="flex items-center gap-3">
+                                  <span className="text-xs px-2 py-0.5 rounded-full flex-shrink-0"
+                                    style={{
+                                      background: e.typ==='feiertag' ? '#f59e0b20' : e.typ==='fahrzeug' ? `${TEAL}20` : 'rgba(255,255,255,0.06)',
+                                      color:      e.typ==='feiertag' ? '#f59e0b'   : e.typ==='fahrzeug' ? TEAL         : '#666',
+                                    }}>{e.typ}</span>
+                                  <span className="text-sm flex-1 truncate" style={{ color: '#aaa' }}>{e.titel}</span>
+                                  <span className="text-xs flex-shrink-0" style={{ color: '#333' }}>{e.datum}</span>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                  {[
+                                    { icon: '❤️', label: 'Likes' },
+                                    { icon: '👁️', label: 'Aufrufe' },
+                                    { icon: '💬', label: 'Nachrichten' },
+                                    { icon: '🔖', label: 'Gespeichert' },
+                                  ].map(s => (
+                                    <div key={s.label} className="flex items-center gap-1.5">
+                                      <span style={{ fontSize: '11px', opacity: 0.3 }}>{s.icon}</span>
+                                      <span className="text-xs" style={{ color: '#2a2a2a' }}>—</span>
+                                    </div>
+                                  ))}
+                                  <span className="text-xs ml-auto" style={{ color: '#222' }}>via API</span>
+                                </div>
                               </div>
                             ))}
                             <button onClick={() => setAktiveTab('verlauf')}
-                              className="text-xs mt-1 text-left transition-all hover:opacity-80"
+                              className="text-xs text-left transition-all hover:opacity-80"
                               style={{ color: '#444' }}>Gesamten Verlauf anzeigen →</button>
                           </div>
                       }
