@@ -1087,9 +1087,9 @@ export default function AdminPage() {
                   <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#444' }}>{MONATE_H[monatH]} {jahrH} · Übersicht</p>
                   <div className="grid grid-cols-4 gap-4">
                     {[
-                      { zahl: anzGepostet, label: 'Gepostet',  farbe: TEAL },
+                      { zahl: anzGepostet, label: 'Gepostet',  farbe: '#22c55e' },
                       { zahl: anzGeplant,  label: 'Geplant',   farbe: '#f59e0b' },
-                      { zahl: anzOffen,    label: 'Offen',     farbe: '#555' },
+                      { zahl: anzOffen,    label: 'Offen',     farbe: '#888' },
                       { zahl: anzVerpasst, label: 'Verpasst',  farbe: '#ef4444' },
                     ].map((s, i) => (
                       <div key={i} className="rounded-2xl p-5 text-center"
