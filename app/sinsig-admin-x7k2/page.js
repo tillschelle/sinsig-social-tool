@@ -561,6 +561,7 @@ export default function AdminPage() {
 
   // Fahrzeug
   const [kfz, setKfz] = useState({ marke: 'Mercedes-Benz', modell: '', baujahr: '', km: '', preis: '', extras: '' })
+  const [kfzFehler, setKfzFehler] = useState([])
   const [kfzCaption, setKfzCaption] = useState('')
   const [kfzHashtags, setKfzHashtags] = useState('')
   const [kfzGeneriert, setKfzGeneriert] = useState(false)
@@ -1774,20 +1775,20 @@ export default function AdminPage() {
                       style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: '#e8e8e8' }} />
                   </div>
                   <div>
-                    <p className="text-xs mb-1.5" style={{ color: '#555' }}>Modell</p>
+                    <p className="text-xs mb-1.5" style={{ color: kfzFehler.includes('modell') ? '#ef4444' : '#555' }}>Modell{kfzFehler.includes('modell') && <span className="ml-2">— Pflichtfeld</span>}</p>
                     <input type="text" placeholder='z.B. "C 220 d"' value={kfz.modell}
-                      onChange={e => setKfz({ ...kfz, modell: e.target.value })}
+                      onChange={e => { setKfz({ ...kfz, modell: e.target.value }); setKfzFehler(f => f.filter(x => x !== 'modell')) }}
                       className="w-full rounded-xl px-4 py-2.5 text-sm outline-none"
-                      style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: '#e8e8e8' }} />
+                      style={{ background: 'rgba(255,255,255,0.05)', border: `1px solid ${kfzFehler.includes('modell') ? '#ef444460' : 'rgba(255,255,255,0.08)'}`, color: '#e8e8e8' }} />
                   </div>
                   <div className="grid grid-cols-3 gap-3">
                     {[['baujahr','Baujahr','z.B. 2020'],['km','km-Stand','z.B. 45000'],['preis','Preis (€)','z.B. 18900']].map(([key,label,ph]) => (
                       <div key={key}>
-                        <p className="text-xs mb-1.5" style={{ color: '#555' }}>{label}</p>
+                        <p className="text-xs mb-1.5" style={{ color: kfzFehler.includes(key) ? '#ef4444' : '#555' }}>{label}{kfzFehler.includes(key) && <span className="ml-2">— Pflichtfeld</span>}</p>
                         <input type="number" placeholder={ph} value={kfz[key]}
-                          onChange={e => setKfz({ ...kfz, [key]: e.target.value })}
+                          onChange={e => { setKfz({ ...kfz, [key]: e.target.value }); setKfzFehler(f => f.filter(x => x !== key)) }}
                           className="w-full rounded-xl px-3 py-2.5 text-sm outline-none"
-                          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: '#e8e8e8' }} />
+                          style={{ background: 'rgba(255,255,255,0.05)', border: `1px solid ${kfzFehler.includes(key) ? '#ef444460' : 'rgba(255,255,255,0.08)'}`, color: '#e8e8e8' }} />
                       </div>
                     ))}
                   </div>
@@ -1958,7 +1959,11 @@ export default function AdminPage() {
                           style={{ background: showPlanenPanel ? '#f59e0b20' : 'rgba(255,255,255,0.05)', color: showPlanenPanel ? '#f59e0b' : '#aaa', border: `1px solid ${showPlanenPanel ? '#f59e0b50' : 'rgba(255,255,255,0.12)'}` }}>
                           📅 Planen
                         </button>
-                        <button onClick={() => setPostConfirm({ onConfirm: () => speichern('fahrzeug', [kfz.marke, kfz.modell].filter(Boolean).join(' '), kfzCaption, kfzHashtags, 'Beitrag') })}
+                        <button onClick={() => {
+                          const fehler = ['modell','baujahr','km','preis'].filter(k => !kfz[k])
+                          if (fehler.length > 0) { setKfzFehler(fehler); return }
+                          setPostConfirm({ onConfirm: () => speichern('fahrzeug', [kfz.marke, kfz.modell].filter(Boolean).join(' '), kfzCaption, kfzHashtags, 'Beitrag') })
+                        }}
                           className="px-6 py-2.5 rounded-xl text-sm font-medium transition-all hover:opacity-80"
                           style={{ background: TEAL, color: '#fff', border: `1px solid ${TEAL}` }}>
                           {gespeichert ? '✅ Gepostet' : 'Jetzt posten'}
@@ -1990,7 +1995,11 @@ export default function AdminPage() {
                             onChange={e => setGeplantUhrzeit(e.target.value)}
                             className="rounded-xl px-3 py-2.5 text-sm outline-none"
                             style={{ background: 'rgba(255,255,255,0.05)', border: `1px solid ${TEAL}40`, color: '#e8e8e8', width: '110px' }} />
-                          <button onClick={() => planen('fahrzeug', [kfz.marke, kfz.modell].filter(Boolean).join(' '), kfzCaption, kfzHashtags, 'Beitrag')}
+                          <button onClick={() => {
+                            const fehler = ['modell','baujahr','km','preis'].filter(k => !kfz[k])
+                            if (fehler.length > 0) { setKfzFehler(fehler); return }
+                            planen('fahrzeug', [kfz.marke, kfz.modell].filter(Boolean).join(' '), kfzCaption, kfzHashtags, 'Beitrag')
+                          }}
                             disabled={!planenDatum}
                             className="px-5 py-2.5 rounded-xl text-sm font-medium transition-all hover:opacity-80"
                             style={{ background: planenDatum ? '#f59e0b' : 'rgba(255,255,255,0.05)', color: planenDatum ? '#000' : '#555', border: 'none' }}>
