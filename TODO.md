@@ -1,20 +1,25 @@
-# Sinsig-Tool – Offene Aufgaben
+# Sinsig-Tool – Offene Aufgaben & Roadmap
 
-## 🔧 In Arbeit / Geplant
+## ⏳ Offen / Geplant
 
 - [ ] **Fahrzeug-Reminder-Logik vereinfachen**
-  Die aktuelle Zwei-Fenster-Logik (`hatKfzInFenster(0,14)` / `hatKfzInFenster(15,28)`) ist schwer verständlich und der angezeigte Text ("Kein Fahrzeug-Post für die Woche ab Tag 15 geplant") war für Nutzer nicht nachvollziehbar. Logik überarbeiten: klares 14-Tage-Intervall, verständlicher Hinweistext.
+  Die aktuelle Zwei-Fenster-Logik (`hatKfzInFenster(0,14)` / `hatKfzInFenster(15,28)`) ist schwer verständlich und der angezeigte Text war für Nutzer nicht nachvollziehbar. Logik überarbeiten: klares 14-Tage-Intervall, verständlicher Hinweistext.
 
-- [ ] **Supabase Cloud-Sync**
-  Damit mehrere Personen / Geräte denselben Verlauf sehen. Aktuell alles in `localStorage` (sinsig_verlauf, sinsig_geplant, sinsig_session).
+- [ ] **Supabase — Cloud-Speicherung & Multi-Device**
+  Aktuell läuft alles über `localStorage` (`sinsig_verlauf`, `sinsig_geplant`, `sinsig_session`) — Daten sind nur auf dem jeweiligen Gerät verfügbar. Supabase (kostenlose Postgres-DB + REST-API) einbinden, damit mehrere Mitarbeiter gleichzeitig planen können und Daten nicht beim Cache-Leeren verloren gehen.
 
-- [ ] **Instagram Graph API Integration**
-  Direkt aus dem Tool heraus posten oder planen.
+- [ ] **Instagram Graph API — automatisches Posten**
+  Direkt aus dem Tool heraus posten oder planen, ohne manuellen Export.
 
-## ✅ Erledigt (Referenz)
+## ✅ Erledigt
 
-- Fahrzeug-Warnung in Service Posts, Feiertage & Fahrzeug-Tab
+- Feiertags-Canvas mit Mercedes-Logo
+- Posting-Empfehlung mit saisonaler Rotation
+- Monatsplan mit Verpasst-Erkennung
+- Post-Planung mit Terminvorschlägen
+- Fahrzeug-Erinnerung in Empfehlungslogik integriert
+- Fahrzeug-Warnung in Service Posts, Feiertage & Fahrzeug-Tab sichtbar
 - Alle Insights-Panels einklappbar (Turbopack JSX-Fix)
 - Insights-Text familiärer + Kontakthinweis (Till Schellenberger)
 - Warnbanner im Redaktionsplan bei Feiertags-Konflikten
-- Ersteller in Verlauf & Redaktionsplan
+- Ersteller wird in Verlauf & Redaktionsplan angezeigt
