@@ -2592,6 +2592,10 @@ export default function AdminPage() {
                         'Insights-Text überarbeitet — familiärer & mit Kontakthinweis',
                         'Warnbanner im Redaktionsplan bei Feiertags-Konflikten',
                         'Ersteller wird in Verlauf & Redaktionsplan angezeigt',
+                        'Gepostet-Kachel grün, Offen-Kachel deutlich sichtbarer',
+                        'Passwort-Toggle: elegantes SVG-Auge statt Emoji',
+                        'Fahrzeug-Erinnerungstexte verständlicher formuliert',
+                        'Insights-Roadmap auf aktuellen Stand gebracht',
                       ]
                     },
                     {
