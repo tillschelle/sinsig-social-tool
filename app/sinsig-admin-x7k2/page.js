@@ -1970,7 +1970,7 @@ export default function AdminPage() {
                     const gepostet = !!gepostetEntry
                     const geplant = !!geplantEntry
                     const verpasst = !gepostet && !geplant && new Date(kalJahr, kalMonat, t) < todayMidnight
-                    diDo.push({ t, iso, tagLabel, uhrzeit, gepostet, geplant, verpasst, titel: geplantEntry?.titel || gepostetEntry?.titel || null })
+                    diDo.push({ t, iso, tagLabel, uhrzeit, gepostet, geplant, verpasst, titel: geplantEntry?.titel || gepostetEntry?.titel || null, ersteller: geplantEntry?.ersteller || gepostetEntry?.ersteller || null })
                   }
                 }
                 const feiertageImMonat = alleKalFeiertage.filter(f => f.m === kalMonat + 1)
@@ -2028,6 +2028,7 @@ export default function AdminPage() {
                             </span>
                           )}
                           {!s.titel && <span className="flex-1" />}
+                          {s.ersteller && <span className="text-xs flex-shrink-0" style={{ color: '#3a3a3a' }}>👤 {s.ersteller}</span>}
                           {s.gepostet  && <span className="text-xs px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: `${TEAL}20`, color: TEAL }}>gepostet</span>}
                           {s.geplant   && <span className="text-xs px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: '#f59e0b20', color: '#f59e0b' }}>geplant</span>}
                           {s.verpasst  && <span className="text-xs px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: '#ef444420', color: '#ef4444' }}>verpasst</span>}
