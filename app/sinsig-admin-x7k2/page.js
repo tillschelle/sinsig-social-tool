@@ -5,6 +5,13 @@ import { useState, useRef, useEffect } from 'react'
 // ─── Farben & Design-Tokens ──────────────────────────────────────────────────
 const TEAL = '#6fa8a5'
 
+// ─── Benutzer ────────────────────────────────────────────────────────────────
+const USERS = [
+  { benutzername: 'martinsvoboda',    passwort: 'supermartin1!', anzeigename: 'Martin Svoboda' },
+  { benutzername: 'tillschellenberger', passwort: 'supertill1!',  anzeigename: 'Till Schellenberger' },
+  { benutzername: 'stephaniekönen',   passwort: 'supersteffi1!', anzeigename: 'Stephanie Könen' },
+]
+
 // ─── Vorlagen mit 3 Varianten ────────────────────────────────────────────────
 const vorlagen = [
   {
@@ -523,6 +530,14 @@ function ActionBtn({ onClick, children, variant = 'ghost' }) {
 
 // ─── Hauptkomponente ──────────────────────────────────────────────────────────
 export default function AdminPage() {
+  // Login
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [currentUser, setCurrentUser] = useState(null)
+  const [loginUser, setLoginUser] = useState('')
+  const [loginPass, setLoginPass] = useState('')
+  const [loginFehler, setLoginFehler] = useState(false)
+  const [loginPassVisible, setLoginPassVisible] = useState(false)
+
   const [aktiveTab, setAktiveTab] = useState('home')
 
   // Service
@@ -577,6 +592,10 @@ export default function AdminPage() {
   useEffect(() => {
     try { const v = localStorage.getItem('sinsig_verlauf'); if (v) setVerlauf(JSON.parse(v)) } catch {}
     try { const g = localStorage.getItem('sinsig_geplant'); if (g) setGeplantePosts(JSON.parse(g)) } catch {}
+    try {
+      const session = localStorage.getItem('sinsig_session')
+      if (session) { setLoggedIn(true); setCurrentUser(session) }
+    } catch {}
   }, [])
 
   useEffect(() => {
@@ -790,6 +809,83 @@ export default function AdminPage() {
     insights:  'Insights & Logik',
   }
 
+  // ─── Login-Screen ──────────────────────────────────────────────────────────
+  if (!loggedIn) {
+    const handleLogin = (e) => {
+      e.preventDefault()
+      const user = USERS.find(
+        u => u.benutzername.toLowerCase() === loginUser.toLowerCase().trim() && u.passwort === loginPass
+      )
+      if (user) {
+        setLoggedIn(true)
+        setCurrentUser(user.anzeigename)
+        setLoginFehler(false)
+        try { localStorage.setItem('sinsig_session', user.anzeigename) } catch {}
+      } else {
+        setLoginFehler(true)
+      }
+    }
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center" style={{ background: '#0c0c0c' }}>
+        <div className="w-full max-w-sm px-8 py-10 rounded-2xl flex flex-col gap-6"
+          style={{ background: '#141414', border: '1px solid rgba(255,255,255,0.07)' }}>
+          {/* Logo */}
+          <div className="flex flex-col items-center gap-3 mb-2">
+            <img src="/logo.png" alt="Sinsig & Lang" className="h-8 w-auto object-contain opacity-60" />
+            <p className="text-xs" style={{ color: '#444' }}>Social Media Tool · Interner Bereich</p>
+          </div>
+
+          <form onSubmit={handleLogin} className="flex flex-col gap-4">
+            <div className="flex flex-col gap-1">
+              <label className="text-xs" style={{ color: '#555' }}>Benutzername</label>
+              <input
+                type="text"
+                autoComplete="username"
+                value={loginUser}
+                onChange={e => { setLoginUser(e.target.value); setLoginFehler(false) }}
+                className="w-full rounded-xl px-4 py-3 text-sm outline-none"
+                style={{ background: '#1e1e1e', border: `1px solid ${loginFehler ? '#ef4444' : 'rgba(255,255,255,0.08)'}`, color: '#e8e8e8' }}
+                placeholder="benutzername"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-xs" style={{ color: '#555' }}>Passwort</label>
+              <div className="relative">
+                <input
+                  type={loginPassVisible ? 'text' : 'password'}
+                  autoComplete="current-password"
+                  value={loginPass}
+                  onChange={e => { setLoginPass(e.target.value); setLoginFehler(false) }}
+                  className="w-full rounded-xl px-4 py-3 text-sm outline-none pr-10"
+                  style={{ background: '#1e1e1e', border: `1px solid ${loginFehler ? '#ef4444' : 'rgba(255,255,255,0.08)'}`, color: '#e8e8e8' }}
+                  placeholder="••••••••"
+                />
+                <button type="button" onClick={() => setLoginPassVisible(v => !v)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs"
+                  style={{ color: '#444' }}>
+                  {loginPassVisible ? '🙈' : '👁'}
+                </button>
+              </div>
+            </div>
+
+            {loginFehler && (
+              <p className="text-xs text-center" style={{ color: '#ef4444' }}>
+                Benutzername oder Passwort falsch
+              </p>
+            )}
+
+            <button type="submit" className="w-full rounded-xl py-3 text-sm font-medium transition-opacity hover:opacity-80"
+              style={{ background: TEAL, color: '#0c0c0c' }}>
+              Anmelden
+            </button>
+          </form>
+
+          <p className="text-center text-xs" style={{ color: '#2a2a2a' }}>v0.1 · Sinsig & Lang GmbH & Co. KG</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="flex min-h-screen" style={{ background: '#0c0c0c', color: '#e8e8e8' }}>
 
@@ -896,6 +992,18 @@ export default function AdminPage() {
             </button>
           ))}
         </nav>
+
+        {/* Benutzer & Logout */}
+        <div className="mt-4 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+          <p className="text-xs px-3 mb-2 truncate" style={{ color: '#444' }}>{currentUser}</p>
+          <button onClick={() => {
+            setLoggedIn(false); setCurrentUser(null); setLoginUser(''); setLoginPass('')
+            try { localStorage.removeItem('sinsig_session') } catch {}
+          }} className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs w-full text-left transition-colors hover:bg-white/5"
+            style={{ color: '#555' }}>
+            <span>↩</span> Abmelden
+          </button>
+        </div>
       </aside>
 
       {/* ── Hauptbereich ─────────────────────────────────────────────────────── */}
