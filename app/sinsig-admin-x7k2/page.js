@@ -745,10 +745,10 @@ export default function AdminPage() {
     const fenster1 = hatKfzInFenster(0, 14)   // nächste 2 Wochen
     const fenster2 = hatKfzInFenster(15, 28)  // übernächste 2 Wochen
     if (!fenster1) {
-      return { text: 'In den nächsten 2 Wochen ist kein Fahrzeug-Post geplant — jetzt erstellen', typ: 'fahrzeug' }
+      return { text: 'Kein Fahrzeug-Post in den nächsten 2 Wochen geplant — jetzt erstellen', typ: 'fahrzeug' }
     }
     if (!fenster2) {
-      return { text: 'Nach dem nächsten Fahrzeug-Post fehlt noch ein weiterer — jetzt vorausplanen', typ: 'fahrzeug' }
+      return { text: 'In 2–4 Wochen fehlt noch ein Fahrzeug-Post — jetzt vorausplanen', typ: 'fahrzeug' }
     }
 
     // Service-Post Rotation
