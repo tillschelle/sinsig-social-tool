@@ -734,13 +734,11 @@ export default function AdminPage() {
       return { text: 'Noch kein Fahrzeug-Post erstellt — jetzt einstellen', typ: 'fahrzeug' }
     }
     const letztesKfz = alleKfzDaten[0]
+    // coverageTage: positiv = in der Zukunft, negativ = in der Vergangenheit
+    // Erinnerung erst wenn letzter Post mehr als 14 Tage her ist (also coverageTage < -14)
     const coverageTage = Math.round((letztesKfz - heute) / 86400000)
-    if (coverageTage < 14) {
-      const hinweis = coverageTage < 0
-        ? `Letzter vor ${Math.abs(coverageTage)} Tagen`
-        : coverageTage === 0 ? 'Letzter heute'
-        : `Nächster in ${coverageTage} Tag${coverageTage !== 1 ? 'en' : ''}`
-      return { text: `${hinweis} — neuen Fahrzeug-Post planen`, typ: 'fahrzeug' }
+    if (coverageTage < -14) {
+      return { text: `Letzter vor ${Math.abs(coverageTage)} Tagen — neuen Fahrzeug-Post planen`, typ: 'fahrzeug' }
     }
 
     // Service-Post Rotation
