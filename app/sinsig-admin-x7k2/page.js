@@ -880,7 +880,7 @@ export default function AdminPage() {
             </button>
           </form>
 
-          <p className="text-center text-xs" style={{ color: '#2a2a2a' }}>v0.1 · Sinsig & Lang GmbH & Co. KG</p>
+          <p className="text-center text-xs" style={{ color: '#2a2a2a' }}>v0.2 · Sinsig & Lang GmbH & Co. KG</p>
         </div>
       </div>
     )
@@ -2419,6 +2419,56 @@ export default function AdminPage() {
                 </div>
               </div>
 
+              {/* Changelog */}
+              <div className="rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <p className="text-sm font-medium mb-4" style={{ color: '#aaa' }}>🗂 Update-Verlauf</p>
+                <div className="flex flex-col gap-4">
+                  {[
+                    {
+                      version: 'v0.2',
+                      datum: 'Mai 2026',
+                      neu: [
+                        'Login-Screen mit Benutzerverwaltung (3 Accounts)',
+                        'Session wird gespeichert — kein Re-Login nötig',
+                        'Abmelden-Button in der Sidebar',
+                        'Deployment auf Cloudflare Pages (sinsig-social-tool.pages.dev)',
+                      ]
+                    },
+                    {
+                      version: 'v0.1',
+                      datum: 'Mai 2026',
+                      neu: [
+                        'Erstes Release',
+                        'Service-Posts mit 9 Vorlagen und je 3 Textvarianten',
+                        'Feiertags-Canvas mit Mercedes-Logo und automatischen Texten',
+                        'Fahrzeug-Post Generator',
+                        'Redaktionsplan mit Verpasst-Erkennung',
+                        'Post-Planung mit Terminvorschlägen',
+                        'Posting-Empfehlung mit saisonaler Rotation und Fahrzeug-Erinnerung',
+                        'Monatsplan mit Titel-Anzeige',
+                        'Insights & Hilfe-Bereich',
+                      ]
+                    },
+                  ].map((entry, i) => (
+                    <div key={i} className="flex flex-col gap-2">
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs font-medium px-2 py-0.5 rounded-md" style={{ background: `${TEAL}20`, color: TEAL }}>{entry.version}</span>
+                        <span className="text-xs" style={{ color: '#444' }}>{entry.datum}</span>
+                      </div>
+                      <div className="flex flex-col gap-1 pl-2">
+                        {entry.neu.map((item, j) => (
+                          <div key={j} className="flex items-start gap-2 text-xs" style={{ color: '#555' }}>
+                            <span style={{ color: '#333', marginTop: '1px' }}>·</span>
+                            <span>{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                      {i < 1 && <div className="mt-1" style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }} />}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
             </div>
           )}
 
@@ -2431,7 +2481,7 @@ export default function AdminPage() {
             <img src="/logo.png" alt="Sinsig & Lang" className="h-5 w-auto object-contain opacity-30" />
             <span className="text-xs" style={{ color: '#2a2a2a' }}>Sinsig & Lang GmbH & Co. KG · Autorisierte Mercedes-Benz Vertragswerkstatt · Bingen am Rhein</span>
           </div>
-          <span className="text-xs" style={{ color: '#222' }}>Erstellt von Till Schellenberger · Internes Tool · v0.1</span>
+          <span className="text-xs" style={{ color: '#222' }}>Erstellt von Till Schellenberger · Internes Tool · v0.2</span>
         </footer>
 
       </main>
