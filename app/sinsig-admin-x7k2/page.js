@@ -2298,7 +2298,7 @@ export default function AdminPage() {
                   <p className="text-sm font-medium" style={{ color: '#aaa' }}>📖 Was ist dieses Tool?</p>
                   <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('was') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
                 </button>
-                {insightsOffen.has('was') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
+                {insightsOffen.has('was') && (<div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-3 text-sm" style={{ color: '#555' }}>
                   <p>Dieses Tool haben wir intern mit Hilfe von KI entwickelt, damit der Alltag rund um Social Media ein bisschen einfacher wird. Was vorher viel Kopfarbeit gekostet hat — was posten wir diese Woche, welcher Feiertag kommt, wann war zuletzt ein Fahrzeug dran — übernimmt das Tool jetzt für euch.</p>
                   <p>Kein Agentur-Produkt, kein fertiges SaaS — sondern etwas, das <span style={{ color: '#e8e8e8' }}>genau für uns gebaut wurde</span>. Für Sinsig & Lang, unsere Abläufe und unsere Art zu arbeiten. Und es wächst mit: Was heute noch fehlt, kommt im nächsten Update.</p>
@@ -2316,7 +2316,7 @@ export default function AdminPage() {
                       </div>
                     ))}
                   </div>
-                </div></div></div>}
+                </div></div></div>)}
               </div>
 
               {/* Workflow */}
@@ -2325,7 +2325,7 @@ export default function AdminPage() {
                   <p className="text-sm font-medium" style={{ color: '#aaa' }}>🔄 Workflow — wie benutze ich das Tool?</p>
                   <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('workflow') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
                 </button>
-                {insightsOffen.has('workflow') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
+                {insightsOffen.has('workflow') && (<div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-3">
                   {[
                     { n:'1', titel:'Sidebar prüfen', desc:'Die linke Sidebar zeigt immer den dringendsten offenen Punkt — Feiertag, Fahrzeug-Erinnerung oder nächster Service-Post. Das ist der tägliche Einstieg.' },
@@ -2343,7 +2343,7 @@ export default function AdminPage() {
                       </div>
                     </div>
                   ))}
-                </div></div></div>}
+                </div></div></div>)}
               </div>
 
               {/* Post-Typen */}
@@ -2352,7 +2352,7 @@ export default function AdminPage() {
                   <p className="text-sm font-medium" style={{ color: '#aaa' }}>📝 Die 3 Post-Typen</p>
                   <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('posttypen') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
                 </button>
-                {insightsOffen.has('posttypen') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
+                {insightsOffen.has('posttypen') && (<div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-4">
                   {[
                     {
@@ -2384,7 +2384,7 @@ export default function AdminPage() {
                       </div>
                     </div>
                   ))}
-                </div></div></div>}
+                </div></div></div>)}
               </div>
 
               {/* Posting-Rhythmus */}
@@ -2393,7 +2393,7 @@ export default function AdminPage() {
                   <p className="text-sm font-medium" style={{ color: '#aaa' }}>📆 Posting-Rhythmus</p>
                   <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('rhythmus') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
                 </button>
-                {insightsOffen.has('rhythmus') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
+                {insightsOffen.has('rhythmus') && (<div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-3 text-sm" style={{ color: '#555' }}>
                   <p>Das Tool plant <span style={{ color: '#e8e8e8' }}>2 Posts pro Woche</span> — immer <span style={{ color: '#e8e8e8' }}>Dienstag um 12:00</span> und <span style={{ color: '#e8e8e8' }}>Donnerstag um 18:00</span>. Diese Zeiten erzielen laut Instagram-Statistiken die höchste organische Reichweite für Business-Accounts.</p>
                   <p>Bei <span style={{ color: '#f59e0b' }}>8–9 Posts im Monat</span> kann jede der 9 Vorlagen mindestens einmal pro Monat erscheinen — kein Follower sieht denselben Inhalt zweimal hintereinander.</p>
@@ -2411,7 +2411,7 @@ export default function AdminPage() {
                       <p className="text-xs mt-1" style={{ color: '#444' }}>Höchste Abendreichweite</p>
                     </div>
                   </div>
-                </div></div></div>}
+                </div></div></div>)}
               </div>
 
               {/* Fahrzeug-Erinnerung */}
@@ -2420,7 +2420,7 @@ export default function AdminPage() {
                   <p className="text-sm font-medium" style={{ color: '#aaa' }}>🚗 Fahrzeug-Post Erinnerung</p>
                   <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('fahrzeug') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
                 </button>
-                {insightsOffen.has('fahrzeug') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
+                {insightsOffen.has('fahrzeug') && (<div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-3 text-sm" style={{ color: '#555' }}>
                   <p>Gebrauchtwagen-Posts sind wichtig für die Reichweite — konkrete Angebote sprechen potenzielle Käufer direkt an und erzeugen messbar mehr Interaktion als reine Service-Posts.</p>
                   <p>Die Erinnerung ist in die <span style={{ color: '#e8e8e8' }}>„Nächster Post"-Empfehlung</span> integriert — sie erscheint als eigene Prioritätsstufe im Empfehlungsfeld, sobald in den nächsten 4 Wochen kein Fahrzeug-Post geplant oder gepostet ist.</p>
@@ -2443,7 +2443,7 @@ export default function AdminPage() {
                     </div>
                   </div>
                   <p style={{ color: '#3a3a3a' }}>Empfehlung: <span style={{ color: '#555' }}>1 Fahrzeug-Post alle 2–4 Wochen</span> als fester Bestandteil des Redaktionsplans.</p>
-                </div></div></div>}
+                </div></div></div>)}
               </div>
 
               {/* Empfehlungs-Logik */}
@@ -2452,7 +2452,7 @@ export default function AdminPage() {
                   <p className="text-sm font-medium" style={{ color: '#aaa' }}>🧠 Empfehlungs-Logik (Sidebar)</p>
                   <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('logik') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
                 </button>
-                {insightsOffen.has('logik') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
+                {insightsOffen.has('logik') && (<div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <p className="text-sm mb-4" style={{ color: '#444' }}>Die Sidebar zeigt immer den dringendsten offenen Punkt. Die Priorität läuft von oben nach unten — sobald eine Stufe erfüllt ist, rückt die nächste nach.</p>
                 <div className="flex flex-col gap-4">
                   {[
@@ -2473,7 +2473,7 @@ export default function AdminPage() {
                       </div>
                     </div>
                   ))}
-                </div></div></div>}
+                </div></div></div>)}
               </div>
 
               {/* Saisonale Schwerpunkte */}
@@ -2482,7 +2482,7 @@ export default function AdminPage() {
                   <p className="text-sm font-medium" style={{ color: '#aaa' }}>📋 Saisonale Schwerpunkte</p>
                   <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('saison') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
                 </button>
-                {insightsOffen.has('saison') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
+                {insightsOffen.has('saison') && (<div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <p className="text-sm mb-4" style={{ color: '#444' }}>Pro Monat gibt es 2 priorisierte Vorlagen die als erstes vorgeschlagen werden. Der Rest der Slots wird durch Rotation aller 9 Vorlagen aufgefüllt.</p>
                 <div className="grid grid-cols-2 gap-x-8 gap-y-0">
                   {[
@@ -2512,7 +2512,7 @@ export default function AdminPage() {
                       </div>
                     )
                   })}
-                </div></div></div>}
+                </div></div></div>)}
               </div>
 
               {/* Datenspeicherung */}
@@ -2521,7 +2521,7 @@ export default function AdminPage() {
                   <p className="text-sm font-medium" style={{ color: '#aaa' }}>💾 Datenspeicherung & Roadmap</p>
                   <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('daten') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
                 </button>
-                {insightsOffen.has('daten') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
+                {insightsOffen.has('daten') && (<div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-3 text-sm" style={{ color: '#555' }}>
                   <p>Alle Posts werden derzeit im <span style={{ color: '#e8e8e8' }}>localStorage des Browsers</span> gespeichert — kein Server, keine Datenbank. Die Daten bleiben erhalten bis der Browser-Cache geleert wird und sind <span style={{ color: '#ef4444' }}>nur auf dem jeweiligen Gerät verfügbar</span>.</p>
                   <div className="flex gap-6 py-3" style={{ borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
@@ -2556,7 +2556,7 @@ export default function AdminPage() {
                       </div>
                     ))}
                   </div>
-                </div></div></div>}
+                </div></div></div>)}
               </div>
 
               {/* Changelog */}
@@ -2565,7 +2565,7 @@ export default function AdminPage() {
                   <p className="text-sm font-medium" style={{ color: '#aaa' }}>🗂 Update-Verlauf</p>
                   <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('changelog') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
                 </button>
-                {insightsOffen.has('changelog') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
+                {insightsOffen.has('changelog') && (<div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-4">
                   {[
                     {
@@ -2630,7 +2630,7 @@ export default function AdminPage() {
                     </div>
                   ))}
                 </div>
-                </div></div></div>}
+                </div></div>)}
               </div>
 
             </div>
