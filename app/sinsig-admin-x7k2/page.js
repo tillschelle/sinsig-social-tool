@@ -580,6 +580,14 @@ export default function AdminPage() {
   const [geplantUhrzeit, setGeplantUhrzeit] = useState('12:00')
   const [verlaufFilter, setVerlaufFilter] = useState('alle') // 'alle' | 'gepostet' | 'geplant'
 
+  // Insights Accordion
+  const [insightsOffen, setInsightsOffen] = useState(new Set(['was']))
+  const toggleInsight = (key) => setInsightsOffen(prev => {
+    const next = new Set(prev)
+    next.has(key) ? next.delete(key) : next.add(key)
+    return next
+  })
+
   // Kalender
   const heute = new Date()
   const [kalMonat, setKalMonat] = useState(heute.getMonth())
@@ -2187,11 +2195,15 @@ export default function AdminPage() {
 
           {/* ══ INSIGHTS ═════════════════════════════════════════════════════ */}
           {aktiveTab === 'insights' && (
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-3">
 
               {/* Über dieses Tool */}
-              <div className="rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                <p className="text-sm font-medium mb-4" style={{ color: '#aaa' }}>📖 Was ist dieses Tool?</p>
+              <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <button onClick={() => toggleInsight('was')} className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/[0.02] transition-colors">
+                  <p className="text-sm font-medium" style={{ color: '#aaa' }}>📖 Was ist dieses Tool?</p>
+                  <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('was') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
+                </button>
+                {insightsOffen.has('was') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-3 text-sm" style={{ color: '#555' }}>
                   <p>Dieses Tool wurde intern mit Hilfe von KI entwickelt, um unseren Arbeitsalltag rund um Social Media zu erleichtern. Was vorher viel manuelle Überlegung gekostet hat — was posten wir diese Woche, welcher Feiertag kommt, wann war zuletzt ein Fahrzeug dran — übernimmt das Tool jetzt automatisch.</p>
                   <p>Es ist kein Agentur-Produkt und kein fertiges SaaS — sondern etwas, das <span style={{ color: '#e8e8e8' }}>genau für uns gebaut wurde</span>. Für Sinsig & Lang, unsere Abläufe und unsere Art zu arbeiten. Und es wächst mit: Was heute fehlt, kommt in einem späteren Update.</p>
@@ -2208,12 +2220,16 @@ export default function AdminPage() {
                       </div>
                     ))}
                   </div>
-                </div>
+                </div></div>}
               </div>
 
               {/* Workflow */}
-              <div className="rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                <p className="text-sm font-medium mb-4" style={{ color: '#aaa' }}>🔄 Workflow — wie benutze ich das Tool?</p>
+              <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <button onClick={() => toggleInsight('workflow')} className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/[0.02] transition-colors">
+                  <p className="text-sm font-medium" style={{ color: '#aaa' }}>🔄 Workflow — wie benutze ich das Tool?</p>
+                  <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('workflow') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
+                </button>
+                {insightsOffen.has('workflow') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-3">
                   {[
                     { n:'1', titel:'Sidebar prüfen', desc:'Die linke Sidebar zeigt immer den dringendsten offenen Punkt — Feiertag, Fahrzeug-Erinnerung oder nächster Service-Post. Das ist der tägliche Einstieg.' },
@@ -2231,12 +2247,16 @@ export default function AdminPage() {
                       </div>
                     </div>
                   ))}
-                </div>
+                </div></div>}
               </div>
 
               {/* Post-Typen */}
-              <div className="rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                <p className="text-sm font-medium mb-4" style={{ color: '#aaa' }}>📝 Die 3 Post-Typen</p>
+              <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <button onClick={() => toggleInsight('posttypen')} className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/[0.02] transition-colors">
+                  <p className="text-sm font-medium" style={{ color: '#aaa' }}>📝 Die 3 Post-Typen</p>
+                  <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('posttypen') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
+                </button>
+                {insightsOffen.has('posttypen') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-4">
                   {[
                     {
@@ -2268,12 +2288,16 @@ export default function AdminPage() {
                       </div>
                     </div>
                   ))}
-                </div>
+                </div></div>}
               </div>
 
               {/* Posting-Rhythmus */}
-              <div className="rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                <p className="text-sm font-medium mb-4" style={{ color: '#aaa' }}>📆 Posting-Rhythmus</p>
+              <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <button onClick={() => toggleInsight('rhythmus')} className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/[0.02] transition-colors">
+                  <p className="text-sm font-medium" style={{ color: '#aaa' }}>📆 Posting-Rhythmus</p>
+                  <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('rhythmus') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
+                </button>
+                {insightsOffen.has('rhythmus') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-3 text-sm" style={{ color: '#555' }}>
                   <p>Das Tool plant <span style={{ color: '#e8e8e8' }}>2 Posts pro Woche</span> — immer <span style={{ color: '#e8e8e8' }}>Dienstag um 12:00</span> und <span style={{ color: '#e8e8e8' }}>Donnerstag um 18:00</span>. Diese Zeiten erzielen laut Instagram-Statistiken die höchste organische Reichweite für Business-Accounts.</p>
                   <p>Bei <span style={{ color: '#f59e0b' }}>8–9 Posts im Monat</span> kann jede der 9 Vorlagen mindestens einmal pro Monat erscheinen — kein Follower sieht denselben Inhalt zweimal hintereinander.</p>
@@ -2291,12 +2315,16 @@ export default function AdminPage() {
                       <p className="text-xs mt-1" style={{ color: '#444' }}>Höchste Abendreichweite</p>
                     </div>
                   </div>
-                </div>
+                </div></div>}
               </div>
 
               {/* Fahrzeug-Erinnerung */}
-              <div className="rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                <p className="text-sm font-medium mb-4" style={{ color: '#aaa' }}>🚗 Fahrzeug-Post Erinnerung</p>
+              <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <button onClick={() => toggleInsight('fahrzeug')} className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/[0.02] transition-colors">
+                  <p className="text-sm font-medium" style={{ color: '#aaa' }}>🚗 Fahrzeug-Post Erinnerung</p>
+                  <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('fahrzeug') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
+                </button>
+                {insightsOffen.has('fahrzeug') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-3 text-sm" style={{ color: '#555' }}>
                   <p>Gebrauchtwagen-Posts sind wichtig für die Reichweite — konkrete Angebote sprechen potenzielle Käufer direkt an und erzeugen messbar mehr Interaktion als reine Service-Posts.</p>
                   <p>Die Erinnerung ist in die <span style={{ color: '#e8e8e8' }}>„Nächster Post"-Empfehlung</span> integriert — sie erscheint als eigene Prioritätsstufe im Empfehlungsfeld, sobald 14 Tage kein Fahrzeug gepostet wurde.</p>
@@ -2319,12 +2347,16 @@ export default function AdminPage() {
                     </div>
                   </div>
                   <p style={{ color: '#3a3a3a' }}>Empfehlung: <span style={{ color: '#555' }}>1 Fahrzeug-Post pro Woche</span> als Teil des Redaktionsplans einplanen — z.B. immer donnerstags als zweiter Slot.</p>
-                </div>
+                </div></div>}
               </div>
 
               {/* Empfehlungs-Logik */}
-              <div className="rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                <p className="text-sm font-medium mb-4" style={{ color: '#aaa' }}>🧠 Empfehlungs-Logik (Sidebar)</p>
+              <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <button onClick={() => toggleInsight('logik')} className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/[0.02] transition-colors">
+                  <p className="text-sm font-medium" style={{ color: '#aaa' }}>🧠 Empfehlungs-Logik (Sidebar)</p>
+                  <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('logik') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
+                </button>
+                {insightsOffen.has('logik') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <p className="text-sm mb-4" style={{ color: '#444' }}>Die Sidebar zeigt immer den dringendsten offenen Punkt. Die Priorität läuft von oben nach unten — sobald eine Stufe erfüllt ist, rückt die nächste nach.</p>
                 <div className="flex flex-col gap-4">
                   {[
@@ -2345,12 +2377,16 @@ export default function AdminPage() {
                       </div>
                     </div>
                   ))}
-                </div>
+                </div></div>}
               </div>
 
               {/* Saisonale Schwerpunkte */}
-              <div className="rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                <p className="text-sm font-medium mb-1" style={{ color: '#aaa' }}>📋 Saisonale Schwerpunkte</p>
+              <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <button onClick={() => toggleInsight('saison')} className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/[0.02] transition-colors">
+                  <p className="text-sm font-medium" style={{ color: '#aaa' }}>📋 Saisonale Schwerpunkte</p>
+                  <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('saison') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
+                </button>
+                {insightsOffen.has('saison') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <p className="text-sm mb-4" style={{ color: '#444' }}>Pro Monat gibt es 2 priorisierte Vorlagen die als erstes vorgeschlagen werden. Der Rest der Slots wird durch Rotation aller 9 Vorlagen aufgefüllt.</p>
                 <div className="grid grid-cols-2 gap-x-8 gap-y-0">
                   {[
@@ -2380,12 +2416,16 @@ export default function AdminPage() {
                       </div>
                     )
                   })}
-                </div>
+                </div></div>}
               </div>
 
               {/* Datenspeicherung */}
-              <div className="rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                <p className="text-sm font-medium mb-4" style={{ color: '#aaa' }}>💾 Datenspeicherung & Roadmap</p>
+              <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <button onClick={() => toggleInsight('daten')} className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/[0.02] transition-colors">
+                  <p className="text-sm font-medium" style={{ color: '#aaa' }}>💾 Datenspeicherung & Roadmap</p>
+                  <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('daten') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
+                </button>
+                {insightsOffen.has('daten') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-3 text-sm" style={{ color: '#555' }}>
                   <p>Alle Posts werden derzeit im <span style={{ color: '#e8e8e8' }}>localStorage des Browsers</span> gespeichert — kein Server, keine Datenbank. Die Daten bleiben erhalten bis der Browser-Cache geleert wird und sind <span style={{ color: '#ef4444' }}>nur auf dem jeweiligen Gerät verfügbar</span>.</p>
                   <div className="flex gap-6 py-3" style={{ borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
@@ -2420,12 +2460,16 @@ export default function AdminPage() {
                       </div>
                     ))}
                   </div>
-                </div>
+                </div></div></div>}
               </div>
 
               {/* Changelog */}
-              <div className="rounded-2xl p-6" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                <p className="text-sm font-medium mb-4" style={{ color: '#aaa' }}>🗂 Update-Verlauf</p>
+              <div className="rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <button onClick={() => toggleInsight('changelog')} className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/[0.02] transition-colors">
+                  <p className="text-sm font-medium" style={{ color: '#aaa' }}>🗂 Update-Verlauf</p>
+                  <span className="text-xs transition-transform" style={{ color: '#444', transform: insightsOffen.has('changelog') ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
+                </button>
+                {insightsOffen.has('changelog') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-4">
                   {[
                     {
@@ -2482,6 +2526,7 @@ export default function AdminPage() {
                     </div>
                   ))}
                 </div>
+                </div></div>}
               </div>
 
             </div>
