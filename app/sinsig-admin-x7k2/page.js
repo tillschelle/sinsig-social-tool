@@ -10,6 +10,7 @@ const USERS = [
   { benutzername: 'martinsvoboda',    passwort: 'supermartin1!', anzeigename: 'Martin Svoboda' },
   { benutzername: 'tillschellenberger', passwort: 'supertill1!',  anzeigename: 'Till Schellenberger' },
   { benutzername: 'stephaniekönen',   passwort: 'supersteffi1!', anzeigename: 'Stephanie Könen' },
+  { benutzername: 'admin',            passwort: 'superadmin',    anzeigename: 'Admin' },
 ]
 
 // ─── Vorlagen mit 3 Varianten ────────────────────────────────────────────────
