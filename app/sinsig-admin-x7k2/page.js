@@ -2572,6 +2572,9 @@ export default function AdminPage() {
                         'Dashboard bereinigt — 30-Tage-Panel entfernt',
                         'Bestätigungs-Dialog vor "Jetzt posten" in allen Tabs',
                         'Fahrzeug-Reminder-Logik vereinfacht: ein 28-Tage-Fenster statt zwei',
+                        'Fahrzeug-Formular: Pflichtfeld-Validierung für Modell, Baujahr, km & Preis',
+                        'Schnellzugriff-Panel aus Dashboard entfernt',
+                        'Begrüßung im Dashboard größer & ohne Emoji',
                       ]
                     },
                     {
