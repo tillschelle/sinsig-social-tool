@@ -2573,7 +2573,10 @@ export default function AdminPage() {
                       datum: 'Mai 2026',
                       neu: [
                         'Fahrzeug-Warnung jetzt auch in Service Posts, Feiertage & Fahrzeug-Tab sichtbar',
-                        'Alle Insights-Panels korrekt einklappbar (Datenspeicherung-Fix)',
+                        'Alle Insights-Panels korrekt einklappbar (JSX-Fix für Turbopack)',
+                        'Insights-Text überarbeitet — familiärer & mit Kontakthinweis',
+                        'Warnbanner im Redaktionsplan bei Feiertags-Konflikten',
+                        'Ersteller wird in Verlauf & Redaktionsplan angezeigt',
                       ]
                     },
                     {
