@@ -3,6 +3,9 @@
 ## ⏳ Offen / Geplant
 
 
+- [ ] **Fahrzeug-Formular: Pflichtfelder vor Caption-Generierung prüfen**
+  Aktuell wird die Validierung (Modell, Baujahr, km, Preis) nur beim Klick auf „Jetzt posten" / „Termin speichern" ausgelöst. Idealerweise sollte bereits beim Klick auf „Caption generieren" geprüft werden, ob alle Pflichtfelder ausgefüllt sind — sonst erscheint die Vorschau mit unvollständigen Daten.
+
 - [ ] **Mobile Version (v0.5)**
   Aktuell nur für Desktop optimiert. Umbau auf responsive Layout:
   - Sidebar → Bottom-Navigation auf Mobile
