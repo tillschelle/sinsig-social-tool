@@ -2429,6 +2429,17 @@ export default function AdminPage() {
                 <div className="flex flex-col gap-4">
                   {[
                     {
+                      version: 'v0.3',
+                      datum: 'Mai 2026',
+                      neu: [
+                        'Fahrzeug-Erinnerung schaut jetzt 4 Wochen voraus (statt 2)',
+                        'Feiertags-Warnung im Redaktionsplan bei Slot-Konflikten',
+                        'Ersteller wird im Redaktionsplan angezeigt',
+                        'Benutzeranzeige oben rechts im Header',
+                        'Admin-Account hinzugefügt',
+                      ]
+                    },
+                    {
                       version: 'v0.2',
                       datum: 'Mai 2026',
                       neu: [
@@ -2451,17 +2462,6 @@ export default function AdminPage() {
                         'Posting-Empfehlung mit saisonaler Rotation und Fahrzeug-Erinnerung',
                         'Monatsplan mit Titel-Anzeige',
                         'Insights & Hilfe-Bereich',
-                      ]
-                    },
-                    {
-                      version: 'v0.3',
-                      datum: 'Mai 2026',
-                      neu: [
-                        'Fahrzeug-Erinnerung schaut jetzt 4 Wochen voraus (statt 2)',
-                        'Feiertags-Warnung im Redaktionsplan bei Slot-Konflikten',
-                        'Ersteller wird im Redaktionsplan angezeigt',
-                        'Benutzeranzeige oben rechts im Header',
-                        'Admin-Account hinzugefügt',
                       ]
                     },
                   ].map((entry, i) => (
