@@ -2580,6 +2580,11 @@ export default function AdminPage() {
                         'Passwort-Toggle: elegantes SVG-Auge statt Emoji',
                         'Fahrzeug-Erinnerungstexte verständlicher formuliert',
                         'Insights-Roadmap auf aktuellen Stand gebracht',
+                        'Zeitbasierte Begrüßung im Dashboard (Morgen/Tag/Abend)',
+                        'Sidebar: Direkt-Buttons für alle Empfehlungstypen',
+                        'Dashboard bereinigt — 30-Tage-Panel entfernt',
+                        'Bestätigungs-Dialog vor "Jetzt posten" in allen Tabs',
+                        'Fahrzeug-Reminder-Logik vereinfacht: ein 28-Tage-Fenster statt zwei',
                       ]
                     },
                     {
