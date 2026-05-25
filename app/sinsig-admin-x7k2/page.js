@@ -731,9 +731,9 @@ export default function AdminPage() {
       return { text: `In ${diff} Tagen: ${first.name} — jetzt planen`, typ: 'holiday' }
     }
 
-    // Fahrzeug-Erinnerung: Gibt es in den nächsten 28 Tagen einen Fahrzeug-Post?
-    const kfzNaechste28 = (() => {
-      for (let i = 0; i <= 28; i++) {
+    // Fahrzeug-Erinnerung: Beide 14-Tage-Fenster müssen abgedeckt sein
+    const hatKfzInFenster = (vonTag, bisTag) => {
+      for (let i = vonTag; i <= bisTag; i++) {
         const d = new Date(heute); d.setDate(heute.getDate() + i)
         const iso = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
         const datStr = d.toLocaleDateString('de-DE')
@@ -741,9 +741,14 @@ export default function AdminPage() {
         if (geplantePosts.some(e => e.geplantesDatum === iso && e.typ === 'fahrzeug')) return true
       }
       return false
-    })()
-    if (!kfzNaechste28) {
-      return { text: 'Kein Fahrzeug-Post in den nächsten 4 Wochen — jetzt einplanen', typ: 'fahrzeug' }
+    }
+    const fenster1 = hatKfzInFenster(0, 14)   // nächste 2 Wochen
+    const fenster2 = hatKfzInFenster(15, 28)  // übernächste 2 Wochen
+    if (!fenster1) {
+      return { text: 'Kein Fahrzeug-Post in den nächsten 2 Wochen — jetzt einplanen', typ: 'fahrzeug' }
+    }
+    if (!fenster2) {
+      return { text: 'Kein Fahrzeug-Post für die Woche ab Tag 15 geplant — jetzt vorausplanen', typ: 'fahrzeug' }
     }
 
     // Service-Post Rotation
@@ -1952,6 +1957,30 @@ export default function AdminPage() {
                   className="text-sm transition-colors hover:opacity-80 px-4 py-2 rounded-xl"
                   style={{ border: '1px solid rgba(255,255,255,0.08)', color: '#666' }}>Weiter →</button>
               </div>
+
+              {/* Aktive Warnung als Banner */}
+              {empfehlung && ['dringend','holiday','fahrzeug'].includes(empfehlung.typ) && (() => {
+                const bannerStyles = {
+                  dringend: { bg: '#ef444412', border: '#ef444430', color: '#ef4444', icon: '⚠️' },
+                  holiday:  { bg: '#f59e0b12', border: '#f59e0b30', color: '#f59e0b', icon: '📅' },
+                  fahrzeug: { bg: `${TEAL}12`,  border: `${TEAL}30`,  color: TEAL,      icon: '🚗' },
+                }
+                const bs = bannerStyles[empfehlung.typ]
+                return (
+                  <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm"
+                    style={{ background: bs.bg, border: `1px solid ${bs.border}`, color: bs.color }}>
+                    <span>{bs.icon}</span>
+                    <span className="flex-1">{empfehlung.text}</span>
+                    {empfehlung.typ === 'fahrzeug' && (
+                      <button onClick={() => setAktiveTab('fahrzeug')}
+                        className="text-xs px-3 py-1 rounded-lg flex-shrink-0 hover:opacity-80"
+                        style={{ background: `${TEAL}25`, color: TEAL }}>
+                        Jetzt erstellen →
+                      </button>
+                    )}
+                  </div>
+                )
+              })()}
 
               {monatsTipp && (
                 <p className="text-sm" style={{ color: TEAL }}>💡 {monatsTipp}</p>
