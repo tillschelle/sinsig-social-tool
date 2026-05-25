@@ -2300,8 +2300,9 @@ export default function AdminPage() {
                 </button>
                 {insightsOffen.has('was') && <div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <div className="flex flex-col gap-3 text-sm" style={{ color: '#555' }}>
-                  <p>Dieses Tool wurde intern mit Hilfe von KI entwickelt, um unseren Arbeitsalltag rund um Social Media zu erleichtern. Was vorher viel manuelle Überlegung gekostet hat — was posten wir diese Woche, welcher Feiertag kommt, wann war zuletzt ein Fahrzeug dran — übernimmt das Tool jetzt automatisch.</p>
-                  <p>Es ist kein Agentur-Produkt und kein fertiges SaaS — sondern etwas, das <span style={{ color: '#e8e8e8' }}>genau für uns gebaut wurde</span>. Für Sinsig & Lang, unsere Abläufe und unsere Art zu arbeiten. Und es wächst mit: Was heute fehlt, kommt in einem späteren Update.</p>
+                  <p>Dieses Tool haben wir intern mit Hilfe von KI entwickelt, damit der Alltag rund um Social Media ein bisschen einfacher wird. Was vorher viel Kopfarbeit gekostet hat — was posten wir diese Woche, welcher Feiertag kommt, wann war zuletzt ein Fahrzeug dran — übernimmt das Tool jetzt für euch.</p>
+                  <p>Kein Agentur-Produkt, kein fertiges SaaS — sondern etwas, das <span style={{ color: '#e8e8e8' }}>genau für uns gebaut wurde</span>. Für Sinsig & Lang, unsere Abläufe und unsere Art zu arbeiten. Und es wächst mit: Was heute noch fehlt, kommt im nächsten Update.</p>
+                  <p style={{ color: '#444' }}>Bei Fragen oder Anregungen einfach bei <span style={{ color: '#888' }}>Till Schellenberger</span> melden — viel Spaß und frohes Schaffen! 🙌</p>
                   <div className="grid grid-cols-3 gap-4 mt-2 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
                     {[
                       { zahl: '9', label: 'Service-Vorlagen', sub: 'mit je 3 Text-Varianten' },
