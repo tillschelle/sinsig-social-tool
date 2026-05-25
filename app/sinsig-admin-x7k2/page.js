@@ -1151,28 +1151,6 @@ export default function AdminPage() {
                       )
                     })()}
 
-                    {/* Schnellzugriff */}
-                    <div className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                      <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#444' }}>Schnellzugriff</p>
-                      <div className="flex flex-col gap-2">
-                        {[
-                          { id:'service',   label:'✦ Service Posts',      sub:'Werkstatt, Angebote, Aktionen' },
-                          { id:'feiertage', label:'✦ Feiertage',          sub:'Canvas-Post erstellen' },
-                          { id:'fahrzeug',  label:'✦ Fahrzeug-Post',      sub:'Gebrauchtwagen einstellen' },
-                          { id:'kalender',  label:'✦ Redaktionsplan',     sub:'Monatsübersicht & Kalender' },
-                        ].map(item => (
-                          <button key={item.id} onClick={() => setAktiveTab(item.id)}
-                            className="flex items-center justify-between px-4 py-3 rounded-xl text-left transition-all hover:opacity-80"
-                            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                            <div>
-                              <p className="text-sm" style={{ color: '#ccc' }}>{item.label}</p>
-                              <p className="text-xs mt-0.5" style={{ color: '#444' }}>{item.sub}</p>
-                            </div>
-                            <span style={{ color: '#333' }}>→</span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
                   </div>
 
                   {/* Rechte Spalte */}
