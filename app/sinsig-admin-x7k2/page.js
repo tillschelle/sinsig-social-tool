@@ -723,9 +723,9 @@ export default function AdminPage() {
       return { text: `In ${diff} Tagen: ${first.name} — jetzt planen`, typ: 'holiday' }
     }
 
-    // Fahrzeug-Erinnerung: Gibt es in den nächsten 14 Tagen einen Fahrzeug-Post?
-    const kfzNaechste14 = (() => {
-      for (let i = 0; i <= 14; i++) {
+    // Fahrzeug-Erinnerung: Gibt es in den nächsten 28 Tagen einen Fahrzeug-Post?
+    const kfzNaechste28 = (() => {
+      for (let i = 0; i <= 28; i++) {
         const d = new Date(heute); d.setDate(heute.getDate() + i)
         const iso = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
         const datStr = d.toLocaleDateString('de-DE')
@@ -734,8 +734,8 @@ export default function AdminPage() {
       }
       return false
     })()
-    if (!kfzNaechste14) {
-      return { text: 'Kein Fahrzeug-Post in den nächsten 14 Tagen — jetzt einplanen', typ: 'fahrzeug' }
+    if (!kfzNaechste28) {
+      return { text: 'Kein Fahrzeug-Post in den nächsten 4 Wochen — jetzt einplanen', typ: 'fahrzeug' }
     }
 
     // Service-Post Rotation
@@ -1965,7 +1965,8 @@ export default function AdminPage() {
                     const gepostet = !!gepostetEntry
                     const geplant = !!geplantEntry
                     const verpasst = !gepostet && !geplant && new Date(kalJahr, kalMonat, t) < todayMidnight
-                    diDo.push({ t, iso, tagLabel, uhrzeit, gepostet, geplant, verpasst, titel: geplantEntry?.titel || gepostetEntry?.titel || null, ersteller: geplantEntry?.ersteller || gepostetEntry?.ersteller || null })
+                    const istFeiertag = alleKalFeiertage.some(f => f.m === kalMonat + 1 && f.t === t)
+                    diDo.push({ t, iso, tagLabel, uhrzeit, gepostet, geplant, verpasst, titel: geplantEntry?.titel || gepostetEntry?.titel || null, ersteller: geplantEntry?.ersteller || gepostetEntry?.ersteller || null, istFeiertag })
                   }
                 }
                 const feiertageImMonat = alleKalFeiertage.filter(f => f.m === kalMonat + 1)
@@ -2023,6 +2024,7 @@ export default function AdminPage() {
                             </span>
                           )}
                           {!s.titel && <span className="flex-1" />}
+                          {s.istFeiertag && <span className="text-xs px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: '#ef444418', color: '#ef4444' }} title="Dieser Tag ist ein Feiertag">⚠️ Feiertag</span>}
                           {s.ersteller && <span className="text-xs flex-shrink-0" style={{ color: '#3a3a3a' }}>👤 {s.ersteller}</span>}
                           {s.gepostet  && <span className="text-xs px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: `${TEAL}20`, color: TEAL }}>gepostet</span>}
                           {s.geplant   && <span className="text-xs px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: '#f59e0b20', color: '#f59e0b' }}>geplant</span>}
