@@ -1100,13 +1100,13 @@ export default function AdminPage() {
                     {[
                       { zahl: anzGepostet, label: 'Gepostet',  farbe: '#22c55e' },
                       { zahl: anzGeplant,  label: 'Geplant',   farbe: '#f59e0b' },
-                      { zahl: anzOffen,    label: 'Offen',     farbe: '#888' },
+                      { zahl: anzOffen,    label: 'Offen',     farbe: '#aaa', bg: 'rgba(255,255,255,0.07)', border: 'rgba(255,255,255,0.18)' },
                       { zahl: anzVerpasst, label: 'Verpasst',  farbe: '#ef4444' },
                     ].map((s, i) => (
                       <div key={i} className="rounded-2xl p-5 text-center"
-                        style={{ background: s.farbe + '10', border: `1px solid ${s.farbe}25` }}>
+                        style={{ background: s.bg || s.farbe + '10', border: `1px solid ${s.border || s.farbe + '25'}` }}>
                         <p className="text-3xl font-light mb-1" style={{ color: s.farbe }}>{s.zahl}</p>
-                        <p className="text-xs uppercase tracking-widest" style={{ color: s.farbe + 'aa' }}>{s.label}</p>
+                        <p className="text-xs uppercase tracking-widest" style={{ color: s.farbe }}>{s.label}</p>
                       </div>
                     ))}
                   </div>
