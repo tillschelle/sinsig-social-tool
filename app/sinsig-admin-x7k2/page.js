@@ -2316,7 +2316,7 @@ export default function AdminPage() {
                       </div>
                     ))}
                   </div>
-                </div></div>}
+                </div></div></div>}
               </div>
 
               {/* Workflow */}
@@ -2343,7 +2343,7 @@ export default function AdminPage() {
                       </div>
                     </div>
                   ))}
-                </div></div>}
+                </div></div></div>}
               </div>
 
               {/* Post-Typen */}
@@ -2384,7 +2384,7 @@ export default function AdminPage() {
                       </div>
                     </div>
                   ))}
-                </div></div>}
+                </div></div></div>}
               </div>
 
               {/* Posting-Rhythmus */}
@@ -2411,7 +2411,7 @@ export default function AdminPage() {
                       <p className="text-xs mt-1" style={{ color: '#444' }}>Höchste Abendreichweite</p>
                     </div>
                   </div>
-                </div></div>}
+                </div></div></div>}
               </div>
 
               {/* Fahrzeug-Erinnerung */}
@@ -2443,7 +2443,7 @@ export default function AdminPage() {
                     </div>
                   </div>
                   <p style={{ color: '#3a3a3a' }}>Empfehlung: <span style={{ color: '#555' }}>1 Fahrzeug-Post alle 2–4 Wochen</span> als fester Bestandteil des Redaktionsplans.</p>
-                </div></div>}
+                </div></div></div>}
               </div>
 
               {/* Empfehlungs-Logik */}
@@ -2473,7 +2473,7 @@ export default function AdminPage() {
                       </div>
                     </div>
                   ))}
-                </div></div>}
+                </div></div></div>}
               </div>
 
               {/* Saisonale Schwerpunkte */}
@@ -2512,7 +2512,7 @@ export default function AdminPage() {
                       </div>
                     )
                   })}
-                </div></div>}
+                </div></div></div>}
               </div>
 
               {/* Datenspeicherung */}
@@ -2556,7 +2556,7 @@ export default function AdminPage() {
                       </div>
                     ))}
                   </div>
-                </div></div>}
+                </div></div></div>}
               </div>
 
               {/* Changelog */}
@@ -2630,7 +2630,7 @@ export default function AdminPage() {
                     </div>
                   ))}
                 </div>
-                </div></div>}
+                </div></div></div>}
               </div>
 
             </div>
