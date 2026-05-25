@@ -722,23 +722,19 @@ export default function AdminPage() {
       return { text: `In ${diff} Tagen: ${first.name} — jetzt planen`, typ: 'holiday' }
     }
 
-    // Fahrzeug-Erinnerung: Vehicle-Coverage muss ≥14 Tage in die Zukunft reichen
-    const alleKfzDaten = [
-      ...verlauf.filter(e => e.typ === 'fahrzeug').map(e => {
-        const p = e.datum.split('.'); return new Date(parseInt(p[2]), parseInt(p[1])-1, parseInt(p[0]))
-      }),
-      ...geplantePosts.filter(e => e.typ === 'fahrzeug').map(e => new Date(e.geplantesDatum + 'T00:00:00'))
-    ].sort((a, b) => b - a) // absteigend, neustes zuerst
-
-    if (alleKfzDaten.length === 0) {
-      return { text: 'Noch kein Fahrzeug-Post erstellt — jetzt einstellen', typ: 'fahrzeug' }
-    }
-    const letztesKfz = alleKfzDaten[0]
-    // coverageTage: positiv = in der Zukunft, negativ = in der Vergangenheit
-    // Erinnerung erst wenn letzter Post mehr als 14 Tage her ist (also coverageTage < -14)
-    const coverageTage = Math.round((letztesKfz - heute) / 86400000)
-    if (coverageTage < -14) {
-      return { text: `Letzter vor ${Math.abs(coverageTage)} Tagen — neuen Fahrzeug-Post planen`, typ: 'fahrzeug' }
+    // Fahrzeug-Erinnerung: Gibt es in den nächsten 14 Tagen einen Fahrzeug-Post?
+    const kfzNaechste14 = (() => {
+      for (let i = 0; i <= 14; i++) {
+        const d = new Date(heute); d.setDate(heute.getDate() + i)
+        const iso = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
+        const datStr = d.toLocaleDateString('de-DE')
+        if (verlauf.some(e => e.datum === datStr && e.typ === 'fahrzeug')) return true
+        if (geplantePosts.some(e => e.geplantesDatum === iso && e.typ === 'fahrzeug')) return true
+      }
+      return false
+    })()
+    if (!kfzNaechste14) {
+      return { text: 'Kein Fahrzeug-Post in den nächsten 14 Tagen — jetzt einplanen', typ: 'fahrzeug' }
     }
 
     // Service-Post Rotation
