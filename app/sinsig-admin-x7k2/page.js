@@ -603,7 +603,7 @@ export default function AdminPage() {
   }, [kalJahr])
 
   function speichern(typ, titel, cap, hash, fmt) {
-    const e = { id: Date.now(), datum: new Date().toLocaleDateString('de-DE'), typ, titel, caption: cap, hashtags: hash, format: fmt || '1:1', notiz: '' }
+    const e = { id: Date.now(), datum: new Date().toLocaleDateString('de-DE'), typ, titel, caption: cap, hashtags: hash, format: fmt || '1:1', notiz: '', ersteller: currentUser || '' }
     const neu = [e, ...verlauf]
     setVerlauf(neu); localStorage.setItem('sinsig_verlauf', JSON.stringify(neu))
     setGespeichert(true); setTimeout(() => setGespeichert(false), 2500)
@@ -611,7 +611,7 @@ export default function AdminPage() {
 
   function planen(typ, titel, cap, hash, fmt) {
     if (!planenDatum) return
-    const e = { id: Date.now(), geplantesDatum: planenDatum, geplantUhrzeit, erstelltAm: new Date().toLocaleDateString('de-DE'), typ, titel, caption: cap, hashtags: hash, format: fmt || 'Beitrag' }
+    const e = { id: Date.now(), geplantesDatum: planenDatum, geplantUhrzeit, erstelltAm: new Date().toLocaleDateString('de-DE'), typ, titel, caption: cap, hashtags: hash, format: fmt || 'Beitrag', ersteller: currentUser || '' }
     const neu = [e, ...geplantePosts]
     setGeplantePosts(neu); localStorage.setItem('sinsig_geplant', JSON.stringify(neu))
     setPlanenDatum(''); setShowPlanenPanel(false)
@@ -993,17 +993,6 @@ export default function AdminPage() {
           ))}
         </nav>
 
-        {/* Benutzer & Logout */}
-        <div className="mt-4 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-          <p className="text-xs px-3 mb-2 truncate" style={{ color: '#444' }}>{currentUser}</p>
-          <button onClick={() => {
-            setLoggedIn(false); setCurrentUser(null); setLoginUser(''); setLoginPass('')
-            try { localStorage.removeItem('sinsig_session') } catch {}
-          }} className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs w-full text-left transition-colors hover:bg-white/5"
-            style={{ color: '#555' }}>
-            <span>↩</span> Abmelden
-          </button>
-        </div>
       </aside>
 
       {/* ── Hauptbereich ─────────────────────────────────────────────────────── */}
@@ -1016,11 +1005,26 @@ export default function AdminPage() {
             <p className="text-xs uppercase tracking-widest mb-1" style={{ color: '#444' }}>Instagram Tool</p>
             <h1 className="text-2xl font-light">{pageTitle[aktiveTab]}</h1>
           </div>
-          {aktiveTab === 'service' && (
-            <ActionBtn onClick={() => { setCaption(''); setHashtags(''); setPreview(null); setAktiveVorlage(null); setAktiveVariante(null); setOverlayText('') }}>
-              Zurücksetzen
-            </ActionBtn>
-          )}
+          <div className="flex items-center gap-4">
+            {aktiveTab === 'service' && (
+              <ActionBtn onClick={() => { setCaption(''); setHashtags(''); setPreview(null); setAktiveVorlage(null); setAktiveVariante(null); setOverlayText('') }}>
+                Zurücksetzen
+              </ActionBtn>
+            )}
+            <div className="flex items-center gap-3 pl-4" style={{ borderLeft: '1px solid rgba(255,255,255,0.06)' }}>
+              <div className="text-right">
+                <p className="text-xs" style={{ color: '#444' }}>Angemeldet als</p>
+                <p className="text-sm" style={{ color: '#888' }}>{currentUser}</p>
+              </div>
+              <button onClick={() => {
+                setLoggedIn(false); setCurrentUser(null); setLoginUser(''); setLoginPass('')
+                try { localStorage.removeItem('sinsig_session') } catch {}
+              }} className="text-xs px-3 py-1.5 rounded-lg transition-colors hover:bg-white/5"
+                style={{ color: '#444', border: '1px solid rgba(255,255,255,0.06)' }}>
+                ↩ Abmelden
+              </button>
+            </div>
+          </div>
         </header>
 
         {/* Content */}
@@ -2126,6 +2130,7 @@ export default function AdminPage() {
                           <span className="text-xs px-2.5 py-1 rounded-full" style={{ background: 'rgba(255,255,255,0.05)', color: '#666' }}>{e.typ}</span>
                           <span className="text-sm font-medium">{e.titel}</span>
                           <span className="text-xs" style={{ color: '#333' }}>{e.format}</span>
+                          {e.ersteller && <span className="text-xs px-2 py-0.5 rounded-md" style={{ background: 'rgba(255,255,255,0.04)', color: '#555' }}>👤 {e.ersteller}</span>}
                         </div>
                         <button onClick={() => geplantLoeschen(e.id)} className="text-xs hover:opacity-80 flex-shrink-0" style={{ color: '#444' }}>Löschen</button>
                       </div>
@@ -2153,6 +2158,7 @@ export default function AdminPage() {
                           </span>
                           <span className="text-sm font-medium">{e.titel}</span>
                           <span className="text-xs" style={{ color: '#333' }}>{e.format}</span>
+                          {e.ersteller && <span className="text-xs px-2 py-0.5 rounded-md" style={{ background: 'rgba(255,255,255,0.04)', color: '#555' }}>👤 {e.ersteller}</span>}
                         </div>
                         <button onClick={() => loeschen(e.id)} className="text-xs hover:opacity-80 flex-shrink-0" style={{ color: '#444' }}>Löschen</button>
                       </div>
