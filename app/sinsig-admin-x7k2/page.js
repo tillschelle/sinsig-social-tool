@@ -897,7 +897,7 @@ export default function AdminPage() {
             </button>
           </form>
 
-          <p className="text-center text-xs" style={{ color: '#2a2a2a' }}>v0.4 · Sinsig & Lang GmbH & Co. KG</p>
+          <p className="text-center text-xs" style={{ color: '#2a2a2a' }}>v0.3 · Sinsig & Lang GmbH & Co. KG</p>
         </div>
       </div>
     )
@@ -2571,7 +2571,7 @@ export default function AdminPage() {
                 <div className="flex flex-col gap-4">
                   {[
                     {
-                      version: 'v0.4',
+                      version: 'v0.3',
                       datum: 'Mai 2026',
                       neu: [
                         'Fahrzeug-Warnung jetzt auch in Service Posts, Feiertage & Fahrzeug-Tab sichtbar',
@@ -2594,17 +2594,6 @@ export default function AdminPage() {
                       ]
                     },
                     {
-                      version: 'v0.3',
-                      datum: 'Mai 2026',
-                      neu: [
-                        'Fahrzeug-Erinnerung schaut jetzt 4 Wochen voraus (statt 2)',
-                        'Feiertags-Warnung im Redaktionsplan bei Slot-Konflikten',
-                        'Ersteller wird im Redaktionsplan angezeigt',
-                        'Benutzeranzeige oben rechts im Header',
-                        'Admin-Account hinzugefügt',
-                      ]
-                    },
-                    {
                       version: 'v0.2',
                       datum: 'Mai 2026',
                       neu: [
@@ -2612,6 +2601,11 @@ export default function AdminPage() {
                         'Session wird gespeichert — kein Re-Login nötig',
                         'Abmelden-Button in der Sidebar',
                         'Deployment auf Cloudflare Pages (sinsig-social-tool.pages.dev)',
+                        'Fahrzeug-Erinnerung schaut jetzt 4 Wochen voraus (statt 2)',
+                        'Feiertags-Warnung im Redaktionsplan bei Slot-Konflikten',
+                        'Ersteller wird im Redaktionsplan angezeigt',
+                        'Benutzeranzeige oben rechts im Header',
+                        'Admin-Account hinzugefügt',
                       ]
                     },
                     {
@@ -2662,7 +2656,7 @@ export default function AdminPage() {
             <img src="/logo.png" alt="Sinsig & Lang" className="h-5 w-auto object-contain opacity-30" />
             <span className="text-xs" style={{ color: '#2a2a2a' }}>Sinsig & Lang GmbH & Co. KG · Autorisierte Mercedes-Benz Vertragswerkstatt · Bingen am Rhein</span>
           </div>
-          <span className="text-xs" style={{ color: '#222' }}>Erstellt von Till Schellenberger · Internes Tool · v0.4</span>
+          <span className="text-xs" style={{ color: '#222' }}>Erstellt von Till Schellenberger · Internes Tool · v0.3</span>
         </footer>
 
       </main>
