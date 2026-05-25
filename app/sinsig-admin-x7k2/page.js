@@ -923,18 +923,25 @@ export default function AdminPage() {
         {/* Smarte Empfehlung */}
         {empfehlung && (() => {
           const styles = {
-            dringend: { bg: '#ef444412', border: '#ef444430', color: '#ef4444', label: '⚠️ Dringend' },
-            holiday:  { bg: '#f59e0b12', border: '#f59e0b30', color: '#f59e0b', label: '📅 Feiertag' },
-            service:  { bg: `${TEAL}12`,  border: `${TEAL}30`,  color: TEAL,      label: '📌 Nächster Post' },
-            fahrzeug: { bg: `${TEAL}12`,  border: `${TEAL}30`,  color: TEAL,      label: '🚗 Fahrzeug-Post' },
-            done:     { bg: '#22c55e12', border: '#22c55e30', color: '#22c55e',   label: '✓ Alles geplant' },
+            dringend: { bg: '#ef444412', border: '#ef444430', color: '#ef4444', label: '⚠️ Dringend',       tab: 'service' },
+            holiday:  { bg: '#f59e0b12', border: '#f59e0b30', color: '#f59e0b', label: '📅 Feiertag',       tab: 'feiertage' },
+            service:  { bg: `${TEAL}12`,  border: `${TEAL}30`,  color: TEAL,    label: '📌 Nächster Post',  tab: 'service' },
+            fahrzeug: { bg: `${TEAL}12`,  border: `${TEAL}30`,  color: TEAL,    label: '🚗 Fahrzeug-Post',  tab: 'fahrzeug' },
+            done:     { bg: '#22c55e12', border: '#22c55e30', color: '#22c55e', label: '✓ Alles geplant',   tab: null },
           }
           const s = styles[empfehlung.typ] || styles.service
           return (
-            <div className="mb-3 rounded-xl p-3 text-xs leading-relaxed"
+            <div className="mb-3 rounded-xl p-3 text-xs leading-relaxed flex flex-col gap-2"
               style={{ background: s.bg, border: `1px solid ${s.border}`, color: s.color }}>
-              <p className="font-medium mb-1" style={{ color: '#999', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{s.label}</p>
-              {empfehlung.text}
+              <p className="font-medium" style={{ color: '#999', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{s.label}</p>
+              <span>{empfehlung.text}</span>
+              {s.tab && (
+                <button onClick={() => setAktiveTab(s.tab)}
+                  className="self-start text-xs px-2.5 py-1 rounded-lg hover:opacity-80 transition-opacity"
+                  style={{ background: s.border, color: s.color }}>
+                  {empfehlung.typ === 'fahrzeug' ? 'Fahrzeug erstellen →' : empfehlung.typ === 'holiday' ? 'Feiertag erstellen →' : 'Service Post erstellen →'}
+                </button>
+              )}
             </div>
           )
         })()}
@@ -1090,8 +1097,14 @@ export default function AdminPage() {
             const letzteVerlauf = verlauf.slice(0, 3)
             const MONATE_H = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember']
 
+            const stunde = new Date().getHours()
+            const gruss = stunde < 12 ? 'Guten Morgen' : stunde < 18 ? 'Guten Tag' : 'Guten Abend'
+
             return (
               <div className="flex flex-col gap-6">
+
+                {/* Begrüßung */}
+                <p className="text-sm" style={{ color: '#555' }}>{gruss}, <span style={{ color: '#888' }}>{currentUser}</span> 👋</p>
 
                 {/* Monats-Stats */}
                 <div>
@@ -1116,32 +1129,24 @@ export default function AdminPage() {
                   {/* Linke Spalte */}
                   <div className="flex flex-col gap-5">
 
-                    {/* Aktuelle Empfehlung */}
-                    {empfehlung && (() => {
+                    {/* Aktuelle Empfehlung — nicht für Fahrzeug (Sidebar reicht) */}
+                    {empfehlung && empfehlung.typ !== 'fahrzeug' && (() => {
                       const styles = {
-                        dringend: { bg:'#ef444412', border:'#ef444430', color:'#ef4444', label:'⚠️ Dringend' },
-                        holiday:  { bg:'#f59e0b12', border:'#f59e0b30', color:'#f59e0b', label:'📅 Feiertag' },
-                        service:  { bg:`${TEAL}12`,  border:`${TEAL}30`,  color:TEAL,      label:'📌 Nächster Post' },
-                        fahrzeug: { bg:`${TEAL}12`,  border:`${TEAL}30`,  color:TEAL,      label:'🚗 Fahrzeug-Post' },
-                        done:     { bg:'#22c55e12', border:'#22c55e30', color:'#22c55e',   label:'✓ Alles geplant' },
+                        dringend: { bg:'#ef444412', border:'#ef444430', color:'#ef4444', label:'⚠️ Dringend',      tab:'service' },
+                        holiday:  { bg:'#f59e0b12', border:'#f59e0b30', color:'#f59e0b', label:'📅 Feiertag',      tab:'feiertage' },
+                        service:  { bg:`${TEAL}12`,  border:`${TEAL}30`,  color:TEAL,    label:'📌 Nächster Post', tab:'service' },
+                        done:     { bg:'#22c55e12', border:'#22c55e30', color:'#22c55e', label:'✓ Alles geplant',  tab: null },
                       }
                       const s = styles[empfehlung.typ] || styles.service
                       return (
                         <div className="rounded-2xl p-5" style={{ background: s.bg, border: `1px solid ${s.border}` }}>
                           <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#666' }}>{s.label}</p>
                           <p className="text-base font-medium" style={{ color: s.color }}>{empfehlung.text}</p>
-                          {empfehlung.vorlage && (
-                            <button onClick={() => setAktiveTab('service')}
+                          {s.tab && (
+                            <button onClick={() => setAktiveTab(s.tab)}
                               className="mt-3 text-xs px-3 py-1.5 rounded-lg transition-all hover:opacity-80"
                               style={{ background: s.color + '20', color: s.color }}>
-                              Jetzt erstellen →
-                            </button>
-                          )}
-                          {empfehlung.typ === 'fahrzeug' && (
-                            <button onClick={() => setAktiveTab('fahrzeug')}
-                              className="mt-3 text-xs px-3 py-1.5 rounded-lg transition-all hover:opacity-80"
-                              style={{ background: s.color + '20', color: s.color }}>
-                              Fahrzeug einstellen →
+                              {empfehlung.typ === 'holiday' ? 'Feiertag erstellen →' : 'Service Post erstellen →'}
                             </button>
                           )}
                         </div>
@@ -1174,24 +1179,6 @@ export default function AdminPage() {
 
                   {/* Rechte Spalte */}
                   <div className="flex flex-col gap-5">
-
-                    {/* Offene Slots 30 Tage */}
-                    <div className="rounded-2xl p-5" style={{ background: offeneSlots.length > 0 ? '#f59e0b08' : `${TEAL}08`, border: `1px solid ${offeneSlots.length > 0 ? '#f59e0b25' : TEAL+'25'}` }}>
-                      <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#666' }}>
-                        {offeneSlots.length > 0 ? '⚠️ Offene Slots · nächste 30 Tage' : '✓ Nächste 30 Tage gedeckt'}
-                      </p>
-                      {offeneSlots.length === 0
-                        ? <p className="text-sm" style={{ color: TEAL }}>Alle Slots sind geplant oder gepostet.</p>
-                        : <div className="flex flex-col gap-1.5">
-                            {offeneSlots.map((label, i) => (
-                              <div key={i} className="flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#f59e0b' }} />
-                                <span className="text-sm" style={{ color: '#aaa' }}>{label}</span>
-                              </div>
-                            ))}
-                          </div>
-                      }
-                    </div>
 
                     {/* Letzte Posts */}
                     <div className="rounded-2xl p-5" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
