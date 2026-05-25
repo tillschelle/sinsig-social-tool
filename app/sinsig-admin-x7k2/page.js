@@ -2371,7 +2371,7 @@ export default function AdminPage() {
                       titel: '✦ Fahrzeug-Post',
                       farbe: '#fb923c',
                       desc: 'Gebrauchtwagen-Angebote mit automatisch generierter Caption aus Marke, Modell, Baujahr, km-Stand und Preis. Mehrere Bilder hochladbar mit Vorschau-Karussell.',
-                      details: ['Caption-Generator aus Fahrzeugdaten', 'Mehrere Bilder als Karussell', 'Erinnerung nach 14 Tagen ohne Fahrzeug'],
+                      details: ['Caption-Generator aus Fahrzeugdaten', 'Mehrere Bilder als Karussell', 'Erinnerung alle 4 Wochen ohne Fahrzeug-Post'],
                     },
                   ].map((t, i) => (
                     <div key={i} className="rounded-xl p-4" style={{ background: 'rgba(255,255,255,0.02)', border: `1px solid ${t.farbe}20` }}>
@@ -2459,7 +2459,7 @@ export default function AdminPage() {
                     { prio: '1', farbe: '#ef4444', label: 'Feiertag in ≤ 7 Tagen — nicht geplant', desc: 'Sofortige rote Warnung. Weihnachten, Ostern & Co. brauchen Vorlaufzeit für Canvas-Erstellung und Abstimmung.' },
                     { prio: '2', farbe: '#f59e0b', label: 'Feiertag in ≤ 30 Tagen — nicht geplant', desc: 'Amber-Hinweis zum frühzeitigen Planen. Das Feiertags-Bild muss erstellt, geprüft und terminiert werden.' },
                     { prio: '3', farbe: TEAL,      label: 'Fahrzeug-Post: keiner in den nächsten 4 Wochen', desc: 'Vorwärts-schauend: Das Tool prüft ob in den nächsten 28 Tagen ein Fahrzeug-Post geplant oder gepostet ist. Fehlt er, erscheint die Erinnerung. Ist einer geplant — egal für welchen Tag in diesem Fenster — bleibt die Erinnerung still.' },
-                    { prio: '4', farbe: TEAL,      label: 'Monatlicher Schwerpunkt noch offen', desc: 'Saisonal passende Vorlage (z.B. Räderwechsel im März/Oktober). Wird vorgeschlagen bis sie für diesen Monat gepostet oder geplant ist.' },
+                    { prio: '4', farbe: '#8ab4b2', label: 'Monatlicher Schwerpunkt noch offen', desc: 'Saisonal passende Vorlage (z.B. Räderwechsel im März/Oktober). Wird vorgeschlagen bis sie für diesen Monat gepostet oder geplant ist.' },
                     { prio: '5', farbe: '#666',    label: 'Rotations-Vorschlag', desc: 'Die Vorlage die am längsten nicht gepostet wurde rückt nach. Keine Wiederholungen im gleichen Monat — maximale Abwechslung für Follower.' },
                   ].map((item, i) => (
                     <div key={i} className="flex gap-4">
@@ -2547,6 +2547,10 @@ export default function AdminPage() {
                       { status: '✅', label: 'Monatsplan mit Verpasst-Erkennung' },
                       { status: '✅', label: 'Post-Planung mit Terminvorschlägen' },
                       { status: '✅', label: 'Fahrzeug-Erinnerung in Empfehlungslogik integriert' },
+                      { status: '✅', label: 'Fahrzeug-Warnung in allen Erstellungs-Tabs' },
+                      { status: '✅', label: 'Feiertags-Warnung im Redaktionsplan' },
+                      { status: '✅', label: 'Ersteller in Verlauf & Redaktionsplan' },
+                      { status: '✅', label: 'Alle Insights-Panels einklappbar' },
                       { status: '⏳', label: 'Supabase — Cloud-Speicherung & Multi-Device' },
                       { status: '⏳', label: 'Instagram Graph API — automatisches Posten' },
                     ].map((item, i) => (
