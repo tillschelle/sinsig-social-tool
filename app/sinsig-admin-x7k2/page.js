@@ -571,6 +571,7 @@ export default function AdminPage() {
   // Verlauf
   const [verlauf, setVerlauf] = useState([])
   const [gespeichert, setGespeichert] = useState(false)
+  const [postConfirm, setPostConfirm] = useState(null) // { onConfirm: fn } oder null
 
   // Planung
   const [geplantePosts, setGeplantePosts] = useState([])
@@ -1488,7 +1489,7 @@ export default function AdminPage() {
                       style={{ background: showPlanenPanel ? '#f59e0b20' : 'rgba(255,255,255,0.05)', color: showPlanenPanel ? '#f59e0b' : '#aaa', border: `1px solid ${showPlanenPanel ? '#f59e0b50' : 'rgba(255,255,255,0.12)'}` }}>
                       📅 Planen
                     </button>
-                    <button onClick={() => speichern('service', aktiveVorlage !== null ? vorlagen[aktiveVorlage].titel : 'Eigener Post', caption, hashtags, format)}
+                    <button onClick={() => setPostConfirm({ onConfirm: () => speichern('service', aktiveVorlage !== null ? vorlagen[aktiveVorlage].titel : 'Eigener Post', caption, hashtags, format) })}
                       className="px-6 py-2.5 rounded-xl text-sm font-medium transition-all hover:opacity-80"
                       style={{ background: TEAL, color: '#fff', border: `1px solid ${TEAL}` }}>
                       {gespeichert ? '✅ Gepostet' : 'Jetzt posten'}
@@ -1694,7 +1695,7 @@ export default function AdminPage() {
                           style={{ background: showPlanenPanel ? '#f59e0b20' : 'rgba(255,255,255,0.05)', color: showPlanenPanel ? '#f59e0b' : '#aaa', border: `1px solid ${showPlanenPanel ? '#f59e0b50' : 'rgba(255,255,255,0.12)'}` }}>
                           📅 Planen
                         </button>
-                        <button onClick={() => speichern('feiertag', feiertage[aktiverFeiertag].name, feiertagCaption, feiertagHashtags, feiertagFormat)}
+                        <button onClick={() => setPostConfirm({ onConfirm: () => speichern('feiertag', feiertage[aktiverFeiertag].name, feiertagCaption, feiertagHashtags, feiertagFormat) })}
                           className="px-6 py-2.5 rounded-xl text-sm font-medium transition-all hover:opacity-80"
                           style={{ background: TEAL, color: '#fff', border: `1px solid ${TEAL}` }}>
                           {gespeichert ? '✅ Gepostet' : 'Jetzt posten'}
@@ -1961,7 +1962,7 @@ export default function AdminPage() {
                           style={{ background: showPlanenPanel ? '#f59e0b20' : 'rgba(255,255,255,0.05)', color: showPlanenPanel ? '#f59e0b' : '#aaa', border: `1px solid ${showPlanenPanel ? '#f59e0b50' : 'rgba(255,255,255,0.12)'}` }}>
                           📅 Planen
                         </button>
-                        <button onClick={() => speichern('fahrzeug', [kfz.marke, kfz.modell].filter(Boolean).join(' '), kfzCaption, kfzHashtags, 'Beitrag')}
+                        <button onClick={() => setPostConfirm({ onConfirm: () => speichern('fahrzeug', [kfz.marke, kfz.modell].filter(Boolean).join(' '), kfzCaption, kfzHashtags, 'Beitrag') })}
                           className="px-6 py-2.5 rounded-xl text-sm font-medium transition-all hover:opacity-80"
                           style={{ background: TEAL, color: '#fff', border: `1px solid ${TEAL}` }}>
                           {gespeichert ? '✅ Gepostet' : 'Jetzt posten'}
@@ -2658,6 +2659,33 @@ export default function AdminPage() {
         </footer>
 
       </main>
+
+      {/* ── Bestätigungs-Modal "Jetzt posten" ───────────────────────────────── */}
+      {postConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}>
+          <div className="rounded-2xl p-7 flex flex-col gap-5 w-80"
+            style={{ background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.1)' }}>
+            <div>
+              <p className="text-base font-medium mb-1" style={{ color: '#e8e8e8' }}>Wirklich jetzt posten?</p>
+              <p className="text-sm" style={{ color: '#555' }}>Der Beitrag wird als gepostet markiert und im Verlauf gespeichert.</p>
+            </div>
+            <div className="flex gap-3">
+              <button onClick={() => setPostConfirm(null)}
+                className="flex-1 py-2.5 rounded-xl text-sm transition-all hover:opacity-80"
+                style={{ background: 'rgba(255,255,255,0.05)', color: '#888', border: '1px solid rgba(255,255,255,0.1)' }}>
+                Abbrechen
+              </button>
+              <button onClick={() => { postConfirm.onConfirm(); setPostConfirm(null) }}
+                className="flex-1 py-2.5 rounded-xl text-sm font-medium transition-all hover:opacity-80"
+                style={{ background: TEAL, color: '#fff' }}>
+                Ja, posten
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   )
 }
