@@ -733,8 +733,9 @@ export default function AdminPage() {
     }
 
     // Fahrzeug-Erinnerung: Beide 14-Tage-Fenster müssen abgedeckt sein
-    const hatKfzInFenster = (vonTag, bisTag) => {
-      for (let i = vonTag; i <= bisTag; i++) {
+    // Fahrzeug-Check: irgendein Post in den nächsten 28 Tagen?
+    const hatKfzInNaechsten28Tagen = () => {
+      for (let i = 0; i <= 28; i++) {
         const d = new Date(heute); d.setDate(heute.getDate() + i)
         const iso = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
         const datStr = d.toLocaleDateString('de-DE')
@@ -743,13 +744,8 @@ export default function AdminPage() {
       }
       return false
     }
-    const fenster1 = hatKfzInFenster(0, 14)   // nächste 2 Wochen
-    const fenster2 = hatKfzInFenster(15, 28)  // übernächste 2 Wochen
-    if (!fenster1) {
-      return { text: 'Kein Fahrzeug-Post in den nächsten 2 Wochen geplant — jetzt erstellen', typ: 'fahrzeug' }
-    }
-    if (!fenster2) {
-      return { text: 'In 2–4 Wochen fehlt noch ein Fahrzeug-Post — jetzt vorausplanen', typ: 'fahrzeug' }
+    if (!hatKfzInNaechsten28Tagen()) {
+      return { text: 'Kein Fahrzeug-Post in den nächsten 4 Wochen geplant — jetzt erstellen', typ: 'fahrzeug' }
     }
 
     // Service-Post Rotation

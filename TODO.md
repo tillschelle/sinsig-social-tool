@@ -2,9 +2,6 @@
 
 ## ⏳ Offen / Geplant
 
-- [ ] **Fahrzeug-Reminder-Logik vereinfachen**
-  Ziel: alle 2 Wochen soll ein Fahrzeug-Post erscheinen. Da es nur eine Person aktiv macht, soll sie rechtzeitig erinnert werden — auch wenn sie z.B. 3 Wochen im Urlaub ist und Posts im Voraus planen muss.
-  Die Zwei-Fenster-Logik (`hatKfzInFenster(0,14)` / `hatKfzInFenster(15,28)`) ist inhaltlich korrekt, aber intern schwer lesbar. Texte wurden bereits vereinfacht. Ggf. Code-Struktur klarer schreiben ohne das Verhalten zu ändern.
 
 - [ ] **Mobile Version (v0.5)**
   Aktuell nur für Desktop optimiert. Umbau auf responsive Layout:
