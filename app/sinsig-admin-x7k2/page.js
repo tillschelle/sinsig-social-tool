@@ -898,7 +898,7 @@ export default function AdminPage() {
             </button>
           </form>
 
-          <p className="text-center text-xs" style={{ color: '#2a2a2a' }}>v0.3 · Sinsig & Lang GmbH & Co. KG</p>
+          <p className="text-center text-xs" style={{ color: '#2a2a2a' }}>v0.5 · Sinsig & Lang GmbH & Co. KG</p>
         </div>
       </div>
     )
@@ -2628,7 +2628,18 @@ export default function AdminPage() {
                 <div className="flex flex-col gap-4">
                   {[
                     {
-                      version: 'v0.3',
+                      version: 'v0.5',
+                      datum: 'Juni 2026',
+                      neu: [
+                        'Mobile-Version: responsives Layout für alle Tabs',
+                        'Bottom Navigation auf Mobile (Home, Service, Feiertage, Fahrzeug, Verlauf, Mehr)',
+                        'Sidebar auf Mobile ausgeblendet',
+                        'Mobile Dashboard: Empfehlungs-Widget & offene Slots sichtbar',
+                        'Alle Grids & Abstände responsiv angepasst',
+                      ]
+                    },
+                    {
+                      version: 'v0.4',
                       datum: 'Mai 2026',
                       neu: [
                         'Fahrzeug-Warnung jetzt auch in Service Posts, Feiertage & Fahrzeug-Tab sichtbar',
@@ -2649,8 +2660,6 @@ export default function AdminPage() {
                         'Schnellzugriff-Panel aus Dashboard entfernt',
                         'Begrüßung im Dashboard größer & ohne Emoji',
                         'Letzte Posts mit Platzhalter-Stats (Likes, Aufrufe, Nachrichten, Gespeichert)',
-                        'Mobile-Version: responsives Layout & Bottom Navigation',
-                        'Mobile Dashboard: Empfehlung & offene Slots direkt sichtbar',
                       ]
                     },
                     {
@@ -2716,7 +2725,7 @@ export default function AdminPage() {
             <img src="/logo.png" alt="Sinsig & Lang" className="h-5 w-auto object-contain opacity-30" />
             <span className="text-xs" style={{ color: '#2a2a2a' }}>Sinsig & Lang GmbH & Co. KG · Autorisierte Mercedes-Benz Vertragswerkstatt · Bingen am Rhein</span>
           </div>
-          <span className="text-xs" style={{ color: '#222' }}>Erstellt von Till Schellenberger · Internes Tool · v0.3</span>
+          <span className="text-xs" style={{ color: '#222' }}>Erstellt von Till Schellenberger · Internes Tool · v0.5</span>
         </footer>
 
       </main>
