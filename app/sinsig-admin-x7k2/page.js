@@ -1099,11 +1099,51 @@ export default function AdminPage() {
             const stunde = new Date().getHours()
             const gruss = stunde < 12 ? 'Guten Morgen' : stunde < 18 ? 'Guten Tag' : 'Guten Abend'
 
+            // Offene Slots (nächste 30 Tage) — für Mobile-Ansicht
+            const in30 = new Date(todayM.getTime() + 30*86400000)
+            const offeneSlots = []
+            const d30 = new Date(todayM); d30.setDate(d30.getDate()+1)
+            while (d30 <= in30) {
+              const wt = d30.getDay()
+              if (wt === 2 || wt === 4) {
+                const iso = `${d30.getFullYear()}-${String(d30.getMonth()+1).padStart(2,'0')}-${String(d30.getDate()).padStart(2,'0')}`
+                const datStr = d30.toLocaleDateString('de-DE')
+                const belegt = verlauf.some(e => e.datum === datStr) || geplantePosts.some(e => e.geplantesDatum === iso)
+                if (!belegt) offeneSlots.push(d30.toLocaleDateString('de-DE', { weekday:'short', day:'numeric', month:'short' }) + (d30.getDay()===2?' · 12:00':' · 18:00'))
+              }
+              d30.setDate(d30.getDate()+1)
+            }
+
             return (
               <div className="flex flex-col gap-6">
 
                 {/* Begrüßung */}
                 <p className="text-xl font-light" style={{ color: '#555' }}>{gruss}, <span style={{ color: '#aaa' }}>{currentUser}</span></p>
+
+                {/* Mobile-only: Empfehlung (alle Typen, inkl. Fahrzeug) */}
+                {empfehlung && (() => {
+                  const styles = {
+                    dringend: { bg:'#ef444412', border:'#ef444430', color:'#ef4444', label:'⚠️ Dringend',       tab:'service' },
+                    holiday:  { bg:'#f59e0b12', border:'#f59e0b30', color:'#f59e0b', label:'📅 Feiertag',       tab:'feiertage' },
+                    service:  { bg:`${TEAL}12`,  border:`${TEAL}30`,  color:TEAL,    label:'📌 Nächster Post',  tab:'service' },
+                    fahrzeug: { bg:`${TEAL}12`,  border:`${TEAL}30`,  color:TEAL,    label:'🚗 Fahrzeug-Post',  tab:'fahrzeug' },
+                    done:     { bg:'#22c55e12', border:'#22c55e30', color:'#22c55e', label:'✓ Alles geplant',   tab: null },
+                  }
+                  const s = styles[empfehlung.typ] || styles.service
+                  return (
+                    <div className="md:hidden rounded-2xl p-4 flex flex-col gap-2" style={{ background: s.bg, border: `1px solid ${s.border}` }}>
+                      <p className="text-xs uppercase tracking-widest" style={{ color: '#666' }}>{s.label}</p>
+                      <p className="text-sm font-medium" style={{ color: s.color }}>{empfehlung.text}</p>
+                      {s.tab && (
+                        <button onClick={() => setAktiveTab(s.tab)}
+                          className="self-start text-xs px-3 py-1.5 rounded-lg transition-all hover:opacity-80"
+                          style={{ background: s.color + '20', color: s.color }}>
+                          {empfehlung.typ === 'fahrzeug' ? 'Fahrzeug erstellen →' : empfehlung.typ === 'holiday' ? 'Feiertag erstellen →' : 'Post erstellen →'}
+                        </button>
+                      )}
+                    </div>
+                  )
+                })()}
 
                 {/* Monats-Stats */}
                 <div>
@@ -1123,6 +1163,21 @@ export default function AdminPage() {
                     ))}
                   </div>
                 </div>
+
+                {/* Mobile-only: Offene Slots nächste 30 Tage */}
+                {offeneSlots.length > 0 && (
+                  <div className="md:hidden rounded-2xl p-4" style={{ background: '#f59e0b08', border: '1px solid #f59e0b25' }}>
+                    <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#f59e0b' }}>⚠️ Offene Slots · nächste 30 Tage</p>
+                    <div className="flex flex-col gap-1.5">
+                      {offeneSlots.map((label, i) => (
+                        <div key={i} className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#f59e0b' }} />
+                          <span className="text-sm" style={{ color: '#aaa' }}>{label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Linke Spalte */}
