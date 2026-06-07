@@ -572,6 +572,7 @@ export default function AdminPage() {
   // Verlauf
   const [verlauf, setVerlauf] = useState([])
   const [gespeichert, setGespeichert] = useState(false)
+  const [mobileMenuOffen, setMobileMenuOffen] = useState(false)
   const [postConfirm, setPostConfirm] = useState(null) // { onConfirm: fn } oder null
 
   // Planung
@@ -907,7 +908,7 @@ export default function AdminPage() {
     <div className="flex min-h-screen" style={{ background: '#0c0c0c', color: '#e8e8e8' }}>
 
       {/* ── Sidebar ──────────────────────────────────────────────────────────── */}
-      <aside className="w-56 flex-shrink-0 flex flex-col py-8 px-5"
+      <aside className="hidden md:flex w-56 flex-shrink-0 flex-col py-8 px-5"
         style={{ borderRight: '1px solid rgba(255,255,255,0.06)', background: '#0f0f0f' }}>
 
         {/* Logo → Home */}
@@ -1023,20 +1024,20 @@ export default function AdminPage() {
       <main className="flex-1 flex flex-col min-h-screen overflow-auto">
 
         {/* Top-Bar */}
-        <header className="flex items-center justify-between px-10 py-6"
+        <header className="flex items-center justify-between px-4 md:px-10 py-4 md:py-6"
           style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
           <div>
-            <p className="text-xs uppercase tracking-widest mb-1" style={{ color: '#444' }}>Instagram Tool</p>
-            <h1 className="text-2xl font-light">{pageTitle[aktiveTab]}</h1>
+            <p className="text-xs uppercase tracking-widest mb-1 hidden md:block" style={{ color: '#444' }}>Instagram Tool</p>
+            <h1 className="text-xl md:text-2xl font-light">{pageTitle[aktiveTab]}</h1>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 md:gap-4">
             {aktiveTab === 'service' && (
               <ActionBtn onClick={() => { setCaption(''); setHashtags(''); setPreview(null); setAktiveVorlage(null); setAktiveVariante(null); setOverlayText('') }}>
                 Zurücksetzen
               </ActionBtn>
             )}
-            <div className="flex items-center gap-3 pl-4" style={{ borderLeft: '1px solid rgba(255,255,255,0.06)' }}>
-              <div className="text-right">
+            <div className="flex items-center gap-3 pl-3 md:pl-4" style={{ borderLeft: '1px solid rgba(255,255,255,0.06)' }}>
+              <div className="text-right hidden md:block">
                 <p className="text-xs" style={{ color: '#444' }}>Angemeldet als</p>
                 <p className="text-sm" style={{ color: '#888' }}>{currentUser}</p>
               </div>
@@ -1052,7 +1053,7 @@ export default function AdminPage() {
         </header>
 
         {/* Content */}
-        <div className="flex-1 px-10 py-8">
+        <div className="flex-1 px-4 md:px-10 py-6 md:py-8 pb-24 md:pb-8">
 
           {/* ══ HOME / DASHBOARD ═════════════════════════════════════════════ */}
           {aktiveTab === 'home' && (() => {
@@ -1107,7 +1108,7 @@ export default function AdminPage() {
                 {/* Monats-Stats */}
                 <div>
                   <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#444' }}>{MONATE_H[monatH]} {jahrH} · Übersicht</p>
-                  <div className="grid grid-cols-4 gap-4">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[
                       { zahl: anzGepostet, label: 'Gepostet',  farbe: '#22c55e' },
                       { zahl: anzGeplant,  label: 'Geplant',   farbe: '#f59e0b' },
@@ -1123,7 +1124,7 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Linke Spalte */}
                   <div className="flex flex-col gap-5">
 
@@ -1775,7 +1776,7 @@ export default function AdminPage() {
                       className="w-full rounded-xl px-4 py-2.5 text-sm outline-none"
                       style={{ background: 'rgba(255,255,255,0.05)', border: `1px solid ${kfzFehler.includes('modell') ? '#ef444460' : 'rgba(255,255,255,0.08)'}`, color: '#e8e8e8' }} />
                   </div>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-3 md:grid-cols-3 gap-3">
                     {[['baujahr','Baujahr','z.B. 2020'],['km','km-Stand','z.B. 45000'],['preis','Preis (€)','z.B. 18900']].map(([key,label,ph]) => (
                       <div key={key}>
                         <p className="text-xs mb-1.5" style={{ color: kfzFehler.includes(key) ? '#ef4444' : '#555' }}>{label}{kfzFehler.includes(key) && <span className="ml-2">— Pflichtfeld</span>}</p>
@@ -2301,7 +2302,7 @@ export default function AdminPage() {
                   <p>Dieses Tool haben wir intern mit Hilfe von KI entwickelt, damit der Alltag rund um Social Media ein bisschen einfacher wird. Was vorher viel Kopfarbeit gekostet hat — was posten wir diese Woche, welcher Feiertag kommt, wann war zuletzt ein Fahrzeug dran — übernimmt das Tool jetzt für euch.</p>
                   <p>Kein Agentur-Produkt, kein fertiges SaaS — sondern etwas, das <span style={{ color: '#e8e8e8' }}>genau für uns gebaut wurde</span>. Für Sinsig & Lang, unsere Abläufe und unsere Art zu arbeiten. Und es wächst mit: Was heute noch fehlt, kommt im nächsten Update.</p>
                   <p style={{ color: '#444' }}>Bei Fragen oder Anregungen einfach bei <span style={{ color: '#888' }}>Till Schellenberger</span> melden — viel Spaß und frohes Schaffen! 🙌</p>
-                  <div className="grid grid-cols-3 gap-4 mt-2 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div className="grid grid-cols-3 gap-2 mt-2 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
                     {[
                       { zahl: '9', label: 'Service-Vorlagen', sub: 'mit je 3 Text-Varianten' },
                       { zahl: '12', label: 'Feiertage', sub: 'mit automatischem Canvas' },
@@ -2482,7 +2483,7 @@ export default function AdminPage() {
                 </button>
                 {insightsOffen.has('saison') && (<div className="px-6 pb-6" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}><div className="pt-4">
                 <p className="text-sm mb-4" style={{ color: '#444' }}>Pro Monat gibt es 2 priorisierte Vorlagen die als erstes vorgeschlagen werden. Der Rest der Slots wird durch Rotation aller 9 Vorlagen aufgefüllt.</p>
-                <div className="grid grid-cols-2 gap-x-8 gap-y-0">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-0">
                   {[
                     ['Januar',    '🔍 HU/AU Erinnerung',  '🛢️ Ölwechsel'],
                     ['Februar',   '🛑 Bremsencheck',       '🔍 HU/AU Erinnerung'],
@@ -2660,6 +2661,59 @@ export default function AdminPage() {
         </footer>
 
       </main>
+
+      {/* ── Mobile Bottom Navigation ─────────────────────────────────────────── */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 flex items-stretch"
+        style={{ background: '#0f0f0f', borderTop: '1px solid rgba(255,255,255,0.08)', height: '60px' }}>
+        {[
+          { id: 'home',      icon: '⌂',  label: 'Home' },
+          { id: 'service',   icon: '🔧', label: 'Service' },
+          { id: 'feiertage', icon: '📅', label: 'Feiertage' },
+          { id: 'fahrzeug',  icon: '🚗', label: 'Fahrzeug' },
+          { id: 'verlauf',   icon: '📋', label: 'Verlauf' },
+          { id: 'mehr',      icon: '···', label: 'Mehr' },
+        ].map(item => (
+          <button key={item.id}
+            onClick={() => {
+              if (item.id === 'mehr') { setMobileMenuOffen(v => !v) }
+              else { setAktiveTab(item.id); setMobileMenuOffen(false) }
+            }}
+            className="flex-1 flex flex-col items-center justify-center gap-0.5 transition-colors"
+            style={{ color: (item.id === 'mehr' ? mobileMenuOffen : aktiveTab === item.id) ? TEAL : '#444' }}>
+            <span style={{ fontSize: item.id === 'mehr' ? '14px' : '16px', lineHeight: 1 }}>{item.icon}</span>
+            <span style={{ fontSize: '9px', letterSpacing: '0.03em' }}>{item.label}</span>
+          </button>
+        ))}
+      </nav>
+
+      {/* Mobile Mehr-Menü */}
+      {mobileMenuOffen && (
+        <div className="md:hidden fixed bottom-16 left-0 right-0 z-39 flex flex-col gap-1 p-3"
+          style={{ background: '#141414', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+          {[
+            { id: 'kalender', label: '✦ Redaktionsplan' },
+            { id: 'insights', label: '✦ Insights & Logik' },
+          ].map(item => (
+            <button key={item.id}
+              onClick={() => { setAktiveTab(item.id); setMobileMenuOffen(false) }}
+              className="flex items-center px-4 py-3 rounded-xl text-sm text-left"
+              style={{
+                background: aktiveTab === item.id ? `${TEAL}18` : 'rgba(255,255,255,0.03)',
+                color: aktiveTab === item.id ? TEAL : '#888',
+                border: `1px solid ${aktiveTab === item.id ? TEAL+'30' : 'rgba(255,255,255,0.06)'}`,
+              }}>
+              {item.label}
+            </button>
+          ))}
+          <button onClick={() => {
+            setLoggedIn(false); setCurrentUser(null); setLoginUser(''); setLoginPass('')
+            try { localStorage.removeItem('sinsig_session') } catch {}
+          }} className="flex items-center px-4 py-3 rounded-xl text-sm text-left mt-1"
+            style={{ background: 'rgba(255,255,255,0.02)', color: '#444', border: '1px solid rgba(255,255,255,0.06)' }}>
+            ↩ Abmelden
+          </button>
+        </div>
+      )}
 
       {/* ── Bestätigungs-Modal "Jetzt posten" ───────────────────────────────── */}
       {postConfirm && (
