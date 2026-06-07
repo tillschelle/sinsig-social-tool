@@ -2605,6 +2605,7 @@ export default function AdminPage() {
                       { status: '✅', label: 'Feiertags-Warnung im Redaktionsplan' },
                       { status: '✅', label: 'Ersteller in Verlauf & Redaktionsplan' },
                       { status: '✅', label: 'Alle Insights-Panels einklappbar' },
+                      { status: '✅', label: 'Mobile-Version mit Bottom Navigation' },
                       { status: '⏳', label: 'Supabase — Cloud-Speicherung & Multi-Device' },
                       { status: '⏳', label: 'Instagram Graph API — automatisches Posten' },
                     ].map((item, i) => (
@@ -2647,6 +2648,9 @@ export default function AdminPage() {
                         'Fahrzeug-Formular: Pflichtfeld-Validierung für Modell, Baujahr, km & Preis',
                         'Schnellzugriff-Panel aus Dashboard entfernt',
                         'Begrüßung im Dashboard größer & ohne Emoji',
+                        'Letzte Posts mit Platzhalter-Stats (Likes, Aufrufe, Nachrichten, Gespeichert)',
+                        'Mobile-Version: responsives Layout & Bottom Navigation',
+                        'Mobile Dashboard: Empfehlung & offene Slots direkt sichtbar',
                       ]
                     },
                     {

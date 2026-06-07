@@ -6,13 +6,8 @@
 - [ ] **Fahrzeug-Formular: Pflichtfelder vor Caption-Generierung prüfen**
   Aktuell wird die Validierung (Modell, Baujahr, km, Preis) nur beim Klick auf „Jetzt posten" / „Termin speichern" ausgelöst. Idealerweise sollte bereits beim Klick auf „Caption generieren" geprüft werden, ob alle Pflichtfelder ausgefüllt sind — sonst erscheint die Vorschau mit unvollständigen Daten.
 
-- [ ] **Mobile Version (v0.5)**
-  Aktuell nur für Desktop optimiert. Umbau auf responsive Layout:
-  - Sidebar → Bottom-Navigation auf Mobile
-  - Haupt-Layout von `flex-row` auf `flex-col` für kleine Screens
-  - Grids anpassen (`grid-cols-4` → `grid-cols-2 md:grid-cols-4` etc., ~30–40 Stellen)
-  - Canvas-Rendering (Feiertage, 1080×1080px) auf kleinen Screens prüfen
-  - Alles über Tailwind-Breakpoints (`sm:`, `md:`), kein eigenes CSS nötig
+- [ ] **Feiertags-Canvas auf Mobile prüfen**
+  Der Canvas (1080×1080px) wird im Browser gerendert — auf kleinen Screens ggf. zu groß oder abgeschnitten. Skalierung und Download auf Mobile testen.
 
 - [ ] **Supabase — Cloud-Speicherung & Multi-Device**
   Aktuell läuft alles über `localStorage` (`sinsig_verlauf`, `sinsig_geplant`, `sinsig_session`) — Daten sind nur auf dem jeweiligen Gerät verfügbar. Supabase (kostenlose Postgres-DB + REST-API) einbinden, damit mehrere Mitarbeiter gleichzeitig planen können und Daten nicht beim Cache-Leeren verloren gehen.
